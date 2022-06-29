@@ -2,12 +2,22 @@ verificaSeTemQuiz();
 
 pegaQuizesDoServidor();
 
-function quizesDoServidorNaTela(todosQuizes){
-    console.log(todosQuizes.data.length);
+quizesDoUsuarioNaTela();
+
+function quizesDoUsuarioNaTela(todosQuizes){
+    console.log(todosQuizes.data[0]);
     for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".todos-os-quizes").innerHTML +=`<ul><img src=${todosQuizes.data[i].image}> </ul>`;
+        document.querySelector(".seus-quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
     }
-}
+   }
+
+function quizesDoServidorNaTela(todosQuizes){
+    const i = todosQuizes;
+    quizesDoUsuarioNaTela(i);
+    for (let i = 0; i < todosQuizes.data.length; i++) {
+        document.querySelector(".todos-os-quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+    }
+   }
 
 function pegaQuizesDoServidor(){
    const promessa = axios.get("https://mock-api.driven.com.br/api/v3/buzzquizz/quizzes");
@@ -16,14 +26,13 @@ function pegaQuizesDoServidor(){
 
 function verificaSeTemQuiz(){
     //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial//
-    document.querySelector(".seus-quizes").innerHTML =`
-    <div class="sem-nehum-quiz">
-    <p>Você não criou nenhum <br> quizz ainda :(</p>
-    <h2 onclick="criarQuiz()">Criar Quizz</h2>
-</div>`;
+//     document.querySelector(".seus-quizes").innerHTML =`
+//     <div class="sem-nehum-quiz">
+//     <p>Você não criou nenhum <br> quizz ainda :(</p>
+//     <h2 onclick="criarQuiz()">Criar Quizz</h2>
+// </div>`;
 }
 
 function criarQuiz(){
-    
 
 }

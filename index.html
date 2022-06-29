@@ -6,17 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>BuzzQuizz</title>
 </head>
 <body>
-    <h1>BuzzQuizz</h1>
+<header>BuzzQuizz</header>
+    
+    <!-- Criei uma div maior chamada "conteudo" que trata-se de uma div master que vai ser responsável pela mudança das telas. -->
+<div class="conteudo">
+        
+    <!-- Tela 1-->
+
+    <!-- div seus quizes -->
     <div class="seus-quizes">
-    
+          
+        <!-- Div "sem nenhum quiz" -->
+        <!-- <div class="sem-nehum-quiz">
+            <p>Você não criou nenhum <br>quiz ainda ;(</p>
+            <button>Criar quizz</button>
+        </div> -->
+
+        <!-- Div com quiz do usuário -->
+        <h1 class="titulo">Seus quizes</h1>    
+        <div class="com-quiz">
+            <!-- <div class="imagens"><h2 class="legenda">Acerte o personagem certo dos simpsons e prove seu valor</h2></div> -->
+        </div>
     </div>
+    
+    <!-- div todos os quizes -->
     <div class="todos-os-quizes">
-    <p>Todos os Quizzes</p>
-    
+        <h1 class="titulo">Todos os quizes</h1>
+        <div class="com-quiz">
+           
+        </div>
     </div>
+</div>    
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/scripts.js"></script>
 </body>
