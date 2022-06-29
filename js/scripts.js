@@ -3,12 +3,14 @@ verificaSeTemQuiz();
 pegaQuizesDoServidor();
 
 function quizesDoServidorNaTela(todosQuizes){
-    console.log(todosQuizes.data[0]);
-    document.querySelector(".todos-os-quizes ul").innerHTML =`<a href="${todosQuizes.data[0].image}" src=""></a>`;
-}
+    const i = todosQuizes;
+   for (let i = 0; i < todosQuizes.data.length; i++) {
+        document.querySelector(".todos-os-quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+    }
+   }
 
 function pegaQuizesDoServidor(){
-   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+   const promessa = axios.get("https://mock-api.driven.com.br/api/v3/buzzquizz/quizzes");
     promessa.then(quizesDoServidorNaTela);
 }
 

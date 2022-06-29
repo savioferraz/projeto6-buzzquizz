@@ -20,6 +20,7 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 
 .conteudo {
@@ -45,14 +46,19 @@ header{
 }
 
 .com-quiz {
+    height: 360px;
     display: flex;
     overflow: auto;
     flex-wrap: wrap;
 }
 
-.seus-quizes>.com-quiz {
-    height: 210px;
+.imagens img{
+    width: 380px;
+    height: 181px;
+    border-radius: 5px;
+    position: relative;   
 }
+
 .imagens {
     background-color: midnightblue;
     width: 380px;
@@ -67,6 +73,7 @@ header{
     top: 136px;
     left: 17px;
     color: #ffffff;
+    z-index: 1;
 }
 
 .sem-nehum-quiz{
