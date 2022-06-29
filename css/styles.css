@@ -1,3 +1,5 @@
+/* Layout geral */
+
 body{
     background: #FAFAFA;
     font-family: Roboto;
@@ -112,8 +114,6 @@ header{
     height:195px;
     display: flex;
     overflow:auto;
-
-
 }
 .primeiro{
     margin-top: 105px;
@@ -121,10 +121,10 @@ header{
 .conteudo>.quizes-usuario,.conteudo>.titulo{
     width:1220px;
 }
+
 /* Tela 2 */
 
 .titulo-quiz {
-    /* position: fixed; */
     top: 69px;
     background-color: midnightblue;   /* remover */
     width: 100%;
@@ -176,7 +176,6 @@ header{
 .caixa-respostas {
     width: 330px;
     height: 217px;
-    background-color: aqua; /* remover */
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
@@ -186,7 +185,11 @@ header{
 }
 
 .resposta-imagem {
-    background-color: orange; /* remover */
+    width: 330px;
+    height: 175px;
+}
+
+.resposta-imagem img {
     width: 330px;
     height: 175px;
 }
