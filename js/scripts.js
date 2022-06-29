@@ -3,10 +3,10 @@ verificaSeTemQuiz();
 pegaQuizesDoServidor();
 
 
-function quizesDoServidorNaTela(todosQuizes){
+function quizesDoServidorNaTela(todosQuizes) {
     const i = todosQuizes;
    for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".quize .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+        document.querySelector(".quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
     }
    }
 
