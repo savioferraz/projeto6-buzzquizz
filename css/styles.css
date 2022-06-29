@@ -34,27 +34,25 @@ header{
     font-size: 20px;
     font-weight: 700;
     color: #000000;
+    margin-left: 6px;
 }
 
 .seus-quizes, .todos-os-quizes {
     width: 1200px;
-    height: 217px;
+    height: 220px;
     border-radius: 5px;
     margin-top: 77px;
 }
 
 .com-quiz {
     display: flex;
-    overflow-x: scroll;
-    overflow-wrap:unset;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.todos-os-quizes>.com-quiz {
+    overflow: auto;
     flex-wrap: wrap;
 }
 
+.seus-quizes>.com-quiz {
+    height: 210px;
+}
 .imagens {
     background-color: midnightblue;
     width: 380px;
