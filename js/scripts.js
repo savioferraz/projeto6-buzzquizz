@@ -6,7 +6,7 @@ pegaQuizesDoServidor();
 function quizesDoServidorNaTela(todosQuizes){
     const i = todosQuizes;
    for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".seus-quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+        document.querySelector(".todos-os-quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
     }
    }
 
