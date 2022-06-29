@@ -68,7 +68,7 @@ function colocaAsPerguntas(objeto){
     for (let i = 0; i < objeto.levels.length; i++) {
         document.querySelector(".caixa-perguntas").innerHTML +=`<div class="titulo-pergunta">${objeto.levels[i].title} </div><div class="respostas"></div> `;
        for (let e = 0; e < objeto.questions.length; e++) {
-        document.querySelector(".respostas").innerHTML +=` <div class="resposta-legenda"> "${objeto.questions[e].title} </div><div class="resposta-imagem"><img src="${objeto.questions[e].image}"></div></div></div></div>;`;
+        document.querySelector(".respostas").innerHTML +=`<div class="resposta-legenda"> "${objeto.questions[e].title} </div><div class="resposta-imagem"><img src="${objeto.questions[e].image}"></div></div></div></div>`;
    
        }
     }
