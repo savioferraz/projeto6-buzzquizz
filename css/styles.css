@@ -69,3 +69,17 @@ body>h1{
     font-size: 20px;
     color: #000000;
 }
+
+.todos-os-quizes>ul{
+    width: 340px;
+    height: 181px;
+    border-radius: 5px;
+    border: #000000 solid 1px;
+    margin: 12px 0px;
+    margin-right: 12px;
+}
+ul>a{
+    width: 100px;
+    height: 100px;
+    background-color: #EC362D;
+}
