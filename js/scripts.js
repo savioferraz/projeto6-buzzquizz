@@ -2,27 +2,46 @@ verificaSeTemQuiz();
 
 pegaQuizesDoServidor();
 
+function topoPaginaInicial(){ 
+    document.querySelector(".conteudo").innerHTML+=`
+    <div class="todos-os-quizes">
+        <h1 class="titulo">Todos os quizes</h1>
+        <div class="quizes">
+        </div>
+    </div>`;
+
+}
 
 function quizesDoServidorNaTela(todosQuizes) {
-    const i = todosQuizes;
+    topoPaginaInicial();
    for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+        document.querySelector(".todos-os-quizes .quizes").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
     }
    }
 
 
 function pegaQuizesDoServidor(){
-   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+   const promessa = axios.get("https://mock-api.driven.com.br/api/v3/buzzquizz/quizzes");
     promessa.then(quizesDoServidorNaTela);
 }
 
 function verificaSeTemQuiz(){
     //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial//
-//     document.querySelector(".seus-quizes").innerHTML =`
-//     <div class="sem-nehum-quiz">
-//     <p>Você não criou nenhum <br> quizz ainda :(</p>
-//     <h2 onclick="criarQuiz()">Criar Quizz</h2>
-// </div>`;
+    if(false){
+        document.querySelector(".conteudo").innerHTML =`
+        <h1 class="titulo primeiro">Seus quizes</h1>
+        <div class="quizes-usuario">
+        </div>`;
+        return;
+    }
+    
+    document.querySelector(".conteudo").innerHTML =`
+    <div class="seus-quizes">
+    <div class="sem-nehum-quiz">
+        <p>Você não criou nenhum <br> quiz ainda ;(</p>
+        <button onclick="paginaDoQuestionario(this)" >Criar quizz</button>
+    </div> 
+</div>`;
 }
 
 function criarQuiz(){

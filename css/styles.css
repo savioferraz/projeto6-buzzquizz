@@ -1,12 +1,7 @@
-/* *{
-    box-sizing: border-box;
-} */
-
 body{
     background: #FAFAFA;
     font-family: Roboto;
 }
-
 header{
     color: #FFFFFF;
     background-color: #EC362D;
@@ -39,21 +34,21 @@ header{
 }
 
 .seus-quizes, .todos-os-quizes {
-    width: 1220px;
+    width: 1061px;
     height: 220px;
     border-radius: 5px;
     margin-top: 77px;
 }
 
 .quizes {
-    height: 360px;
+    height: 340px;
     display: flex;
     overflow: auto;
     flex-wrap: wrap;
 }
 
 .imagens img{
-    width: 380px;
+    width: 340px;
     height: 181px;
     border-radius: 5px;
     position: relative;   
@@ -61,7 +56,7 @@ header{
 
 .imagens {
     background-color: midnightblue;
-    width: 380px;
+    width: 340px;
     height: 181px;
     margin: 7px 6px;
     border-radius: 5px;
@@ -69,7 +64,7 @@ header{
 }
 
 .imagens .legenda {
-    position: relative;
+    position: absolute;
     top: 136px;
     left: 17px;
     color: #ffffff;
@@ -81,7 +76,7 @@ header{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 1220px;
+    width: 1051px;
     height: 181px;
     border: 1px dashed #D5D5D5;
     border-radius: 5px;
@@ -105,4 +100,19 @@ header{
     font-size: 21px;
     color: #EC362D;
     background-color: #ffffff;
+}
+
+.conteudo>.quizes-usuario{
+    height:195px;
+    display: flex;
+    overflow:auto;
+
+
+}
+.primeiro{
+    margin-top: 105px;
+}
+.conteudo>.quizes-usuario,.conteudo>.titulo{
+    width:1220px;
+
 }
