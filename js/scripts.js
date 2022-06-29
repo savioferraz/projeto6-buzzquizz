@@ -55,12 +55,12 @@ function criarQuiz(){
 
 function selecionaQuiz(elemento, numeroElemento){
     let objeto = quizes[0].data[numeroElemento];
-    colocaTelaDoquiz(elemento);
+    colocaTelaDoquiz(objeto);
     colocaAsPerguntas(objeto);
 }
 
-function colocaTelaDoquiz(elemento){
-    document.querySelector(".conteudo").innerHTML =` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${elemento.firstChild.src}"> </div> <div class="titulo-imagem">${elemento.textContent}</div></div><div class="caixa-perguntas">  </div>`;  
+function colocaTelaDoquiz(objeto){
+    document.querySelector(".conteudo").innerHTML =` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${objeto.image}"> </div> <div class="titulo-imagem">${objeto.title}</div></div><div class="caixa-perguntas">  </div>`;  
 }
 
 function colocaAsPerguntas(objeto){
@@ -68,7 +68,7 @@ function colocaAsPerguntas(objeto){
     for (let i = 0; i < objeto.levels.length; i++) {
         document.querySelector(".caixa-perguntas").innerHTML +=`<div class="titulo-pergunta">${objeto.levels[i].title} </div><div class="respostas"></div> `;
        for (let e = 0; e < objeto.questions.length; e++) {
-        document.querySelector(".respostas").innerHTML +=` <div class="resposta-legenda"> "${objeto.levels[e].title} </div><div class="resposta-imagem"><img src="${objeto.levels[e].image}"></div></div></div></div>;`;
+        document.querySelector(".respostas").innerHTML +=` <div class="resposta-legenda"> "${objeto.questions[e].title} </div><div class="resposta-imagem"><img src="${objeto.questions[e].image}"></div></div></div></div>;`;
    
        }
     }
