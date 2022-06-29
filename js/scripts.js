@@ -2,7 +2,7 @@ verificaSeTemQuiz();
 
 pegaQuizesDoServidor();
 
-function topoPaginaInicial(){ 
+//function topoPaginaInicial(){ 
     document.querySelector(".conteudo").innerHTML+=`
     <div class="todos-os-quizes">
         <h1 class="titulo">Todos os quizes</h1>
@@ -10,7 +10,7 @@ function topoPaginaInicial(){
         </div>
     </div>`;
 
-}
+//}
 
 function quizesDoServidorNaTela(todosQuizes) {
     topoPaginaInicial();
@@ -25,7 +25,7 @@ function pegaQuizesDoServidor(){
     promessa.then(quizesDoServidorNaTela);
 }
 
-function verificaSeTemQuiz(){
+//function verificaSeTemQuiz(){
     //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial//
     if(false){
         document.querySelector(".conteudo").innerHTML =`
@@ -42,7 +42,7 @@ function verificaSeTemQuiz(){
         <button onclick="paginaDoQuestionario(this)" >Criar quizz</button>
     </div> 
 </div>`;
-}
+//}
 
 function criarQuiz(){
 

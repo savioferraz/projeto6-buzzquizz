@@ -18,8 +18,11 @@ header{
     z-index: 1;
 }
 
-.conteudo {
+.corConteudo2{
     background-color: #e5e5e5;
+}
+
+.conteudo {
     margin-top: 69px;
     display: flex;
     flex-direction: column;
