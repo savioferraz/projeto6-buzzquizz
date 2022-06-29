@@ -25,6 +25,13 @@ header{
 .conteudo {
     margin-top: 69px;
 }
+
+.titulo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+}
+
 .seus-quizes {
     
     width: 1051px;
@@ -47,13 +54,17 @@ header{
     width: 380px;
     height: 181px;
     margin: 7px 6px;
+    border-radius: 5px;
+    position: relative;
 }
 
-.titulo {
-    font-size: 20px;
-    font-weight: 700;
-    color: #000000;
+.imagens .legenda {
+    position: relative;
+    top: 150px;
+    left: 17px;
 }
+
+
 .sem-nehum-quiz{
     text-align: center;
     width: 1051px;
