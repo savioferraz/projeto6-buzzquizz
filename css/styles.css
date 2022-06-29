@@ -1,0 +1,85 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background: #FAFAFA;
+}
+
+.sem-nehum-quiz>p,.sem-nehum-quiz>h2, .sem-nehum-quiz, body>h1, body{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;  
+}
+
+.todos-os-quizes>p, .sem-nehum-quiz>h2, body>h1{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+body>h1{
+ color: #FFFFFF;
+}
+
+
+h1>.sem-nehum-quiz{
+     background-color: blue  /* #FAFAFA; */
+}
+
+body>h1{
+    background-color: #EC362D;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 69px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 700;
+    font-size : 37px;
+}
+.sem-nehum-quiz{
+    text-align: center;
+    width: 1051px;
+    height: 181px;
+    border: 1px dashed #D5D5D5;
+    border-radius: 5px;
+    margin-top: 146px;
+}
+.sem-nehum-quiz>p{
+    color: #B9B9B9;
+    width: 250px;
+    height: 107px;
+}
+.sem-nehum-quiz>h2{
+    border: 1px dashed #EC362D;
+    border-radius: 50px;
+    width: 136px;
+    height: 40px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    color: #EC362D;
+}
+
+.todos-os-quizes{
+    margin-top: 77px;
+    width: 1051px;
+    height: 410px;
+    font-weight: 700;
+    font-size: 20px;
+    color: #000000;
+}
+
+.todos-os-quizes>ul{
+    width: 340px;
+    height: 181px;
+    border: #000000 solid 1px;
+    margin: 12px 0px;
+    margin-right: 12px;
+}
+ul>img{
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: #EC362D;
+}
