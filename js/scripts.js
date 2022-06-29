@@ -2,19 +2,9 @@ verificaSeTemQuiz();
 
 pegaQuizesDoServidor();
 
-quizesDoUsuarioNaTela();
-
-function quizesDoUsuarioNaTela(todosQuizes) {
-    console.log(todosQuizes.data[0]);
-    for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".seus-quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
-    }
-   }
-
 function quizesDoServidorNaTela(todosQuizes){
     const i = todosQuizes;
-    quizesDoUsuarioNaTela(i);
-    for (let i = 0; i < todosQuizes.data.length; i++) {
+   for (let i = 0; i < todosQuizes.data.length; i++) {
         document.querySelector(".todos-os-quizes .com-quiz").innerHTML +=` <div class="imagens"><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
     }
    }
