@@ -159,7 +159,7 @@ header{
 .titulo-pergunta {
     height: 138px;
     width: 688px;
-    background-color: #434CA0;
+    background-color:#EC362D;
     color: #FFFFFF;
     display: flex;
     align-items: center;
@@ -241,4 +241,5 @@ input {
 }
 .opaco{
     opacity: 30%;
+
 }
