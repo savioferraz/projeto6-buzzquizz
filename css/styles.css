@@ -159,7 +159,7 @@ header{
 .titulo-pergunta {
     height: 138px;
     width: 688px;
-    background-color: #434CA0;
+    background-color:#EC362D;
     color: #FFFFFF;
     display: flex;
     align-items: center;
@@ -256,6 +256,7 @@ input {
 
 .opaco{
     opacity: 30%;
+<<<<<<< HEAD
 }
 
 .voltar {
@@ -263,4 +264,7 @@ input {
     background-color: transparent;
     font-size: 21px;
     color: #818181;
+=======
+
+>>>>>>> a579ed8ccc486b302eae5f009ee4ec0702dc0424
 }
