@@ -185,7 +185,7 @@ header{
     font-weight: 700px;
 }
 
-.resposta-imagem {
+.resposta-imagem, .resposta-imagem>img {
     background-color: orange; /* remover */
     width: 330px;
     height: 175px;

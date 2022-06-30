@@ -64,11 +64,13 @@ function colocaTelaDoquiz(objeto){
 }
 
 function colocaAsPerguntas(objeto){
-    console.log(objeto);
-    for (let i = 0; i < objeto.levels.length; i++) {
-        document.querySelector(".caixa-perguntas").innerHTML +=`<div class="titulo-pergunta">${objeto.levels[i].title} </div><div class="respostas"></div> `;
-       for (let e = 0; e < objeto.questions.length; e++) {
-        document.querySelector(".respostas").innerHTML +=`<div class="resposta-legenda">${objeto.questions[e].title} </div><div class="resposta-imagem"><img src="${objeto.questions[e].image}"></div></div></div></div>`;
+    const numero = objeto;
+    for (let i = 0; i < objeto.questions.length; i++) {
+        let caixaDePergunta = document.querySelector(".caixa-perguntas");
+        caixaDePergunta.innerHTML +=`<div class="titulo-pergunta">${objeto.questions[i].title} </div><div class="respostas"></div> `;
+        for (let e = 0; e < objeto.questions[i].answers.length ; e++) {
+            console.log(objeto.questions[i].answers[e].text);
+            caixaDePergunta.lastElementChild.innerHTML +=`<div class="resposta-legenda">${objeto.questions[i].answers[e].text} </div><div class="resposta-imagem"><img src="${objeto.questions[i].answers[e].image}"></div></div></div></div>`;
    
        }
     }
