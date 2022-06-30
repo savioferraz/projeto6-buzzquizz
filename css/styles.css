@@ -204,18 +204,20 @@ header{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+    align-items: flex-start;
+    justify-content: space-between;
     box-sizing: border-box;
     padding: 15px;
+    margin: 12px auto;
 }
 
 .criacao {
-    margin: 65px 0 32px 0;
+    margin: 65px 0 20px 0;
+    font-size: 23px;
 }
 
 input {
-    width: 564px;
+    width: 552px;
     height: 46px;
     border: 1px solid #D1D1D1;
     border-radius: 5px;
@@ -230,8 +232,9 @@ input {
 }
 
 .botao-criar {
-    margin-top: 75px;
+    margin: 60px auto;
     padding: auto 120px;
+    min-width: 300px;
     height: 54px;
     color: #FFF5F4;
     font-size: 21px;
@@ -239,6 +242,25 @@ input {
     background: #EC362D;
     border-radius: 15px;
 }
+
+.recolhida {
+    height: 60px;
+    flex-direction: row;
+    align-items: center;    
+}
+
+.recolhida ion-icon {
+    width: 26px;
+    height: 26px;
+}
+
 .opaco{
     opacity: 30%;
+}
+
+.voltar {
+    border: none;
+    background-color: transparent;
+    font-size: 21px;
+    color: #818181;
 }
