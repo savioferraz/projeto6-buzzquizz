@@ -76,9 +76,7 @@ function colocaAsPerguntas(){
     for (let i = 0; i < objeto[0].questions.length; i++) {
         let caixaDePergunta = document.querySelector(".caixa-perguntas");
         caixaDePergunta.innerHTML +=`<div class="titulo-pergunta">${objeto[0].questions[i].title} </div><div class="respostas"></div> `;
-        //console.log(objeto[0].questions[i].answers);    
         for (let e = 0; e < objeto[0].questions[i].answers.length ; e++) {
-            //console.log(objeto[0].questions[i].answers[e]);        
             caixaDePergunta.lastElementChild.innerHTML +=`<div class="resposta-imagem"><img onclick="confereAcerto(this,${i},${e})" src="${objeto[0].questions[i].answers[e].image}"><div class="resposta-legenda">${objeto[0].questions[i].answers[e].text} </div></div>`;
        }
     }
