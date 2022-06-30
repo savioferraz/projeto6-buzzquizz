@@ -50,13 +50,16 @@ function verificaSeTemQuiz(){
     baixoPaginainicial(true);   
 }
 function criarQuiz(){
-
 }
 
 function selecionaQuiz(elemento, numeroElemento){
     let objeto = quizes[0].data[numeroElemento];
     colocaTelaDoquiz(objeto);
     colocaAsPerguntas(objeto);
+}
+
+function colocaTelaDoquiz(objeto){
+    document.querySelector(".conteudo").innerHTML =` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${objeto.image}"> </div> <div class="titulo-imagem">${objeto.title}</div></div><div class="caixa-perguntas">  </div>`;  
 }
 
 function colocaTelaDoquiz(objeto){
@@ -74,7 +77,4 @@ function colocaAsPerguntas(objeto){
    
        }
     }
-    
 }
-
-
