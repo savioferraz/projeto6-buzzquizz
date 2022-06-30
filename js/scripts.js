@@ -1,5 +1,11 @@
 const quizes = [];
 
+let totalAcertos = 0;
+
+let totalJogadas = 0;
+
+const objeto = [];
+
 verificaSeTemQuiz();
 
 pegaQuizesDoServidor();
@@ -9,12 +15,12 @@ function quizesDoServidorNaTela(todosQuizes) {
     quizes.push(todosQuizes);
     topoPaginaInicial();
    for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".todos-os-quizes .quizes").innerHTML +=` <div class="imagens" onclick="selecionaQuiz(this,${i})" ><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+        document.querySelector(".todos-os-quizes .quizes").innerHTML +=` <div class="imagens" onclick="selecionaQuiz(${i})" ><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
     }
 }
 
 function pegaQuizesDoServidor(){
-   const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+   const promessa = axios.get("https://mock-api.driven.com.br/api/v3/buzzquizz/quizzes");
     promessa.then(quizesDoServidorNaTela);
 }
 
@@ -52,29 +58,45 @@ function verificaSeTemQuiz(){
 function criarQuiz(){
 }
 
-function selecionaQuiz(elemento, numeroElemento){
-    let objeto = quizes[0].data[numeroElemento];
-    colocaTelaDoquiz(objeto);
-    colocaAsPerguntas(objeto);
+function selecionaQuiz(numeroElemento){
+    objeto.push(quizes[0].data[numeroElemento]);
+    colocaTelaDoquiz();
+    colocaAsPerguntas();
 }
 
-function colocaTelaDoquiz(objeto){
-    document.querySelector(".conteudo").innerHTML =` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${objeto.image}"> </div> <div class="titulo-imagem">${objeto.title}</div></div><div class="caixa-perguntas">  </div>`;  
+function colocaTelaDoquiz(){
+    document.querySelector(".conteudo").innerHTML =` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${objeto[0].image}"> </div> <div class="titulo-imagem">${objeto[0].title}</div></div><div class="caixa-perguntas">  </div>`;  
 }
 
-function colocaTelaDoquiz(objeto){
-    document.querySelector(".conteudo").innerHTML =` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${objeto.image}"> </div> <div class="titulo-imagem">${objeto.title}</div></div><div class="caixa-perguntas">  </div>`;  
+function colocaTelaDoquiz(){
+    document.querySelector(".conteudo").innerHTML =` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${objeto[0].image}"> </div> <div class="titulo-imagem">${objeto[0].title}</div></div><div class="caixa-perguntas">  </div>`;  
 }
 
-function colocaAsPerguntas(objeto){
-    const numero = objeto;
-    for (let i = 0; i < objeto.questions.length; i++) {
+function colocaAsPerguntas(){
+    for (let i = 0; i < objeto[0].questions.length; i++) {
         let caixaDePergunta = document.querySelector(".caixa-perguntas");
-        caixaDePergunta.innerHTML +=`<div class="titulo-pergunta">${objeto.questions[i].title} </div><div class="respostas"></div> `;
-        for (let e = 0; e < objeto.questions[i].answers.length ; e++) {
-            console.log(objeto.questions[i].answers[e].text);
-            caixaDePergunta.lastElementChild.innerHTML +=`<div class="resposta-legenda">${objeto.questions[i].answers[e].text} </div><div class="resposta-imagem"><img src="${objeto.questions[i].answers[e].image}"></div></div></div></div>`;
-   
+        caixaDePergunta.innerHTML +=`<div class="titulo-pergunta">${objeto[0].questions[i].title} </div><div class="respostas"></div> `;
+        //console.log(objeto[0].questions[i].answers);    
+        for (let e = 0; e < objeto[0].questions[i].answers.length ; e++) {
+            //console.log(objeto[0].questions[i].answers[e]);        
+            caixaDePergunta.lastElementChild.innerHTML +=`<div class="resposta-imagem"><img onclick="confereAcerto(this,${i},${e})" src="${objeto[0].questions[i].answers[e].image}"><div class="resposta-legenda">${objeto[0].questions[i].answers[e].text} </div></div>`;
        }
     }
+}
+
+function confereAcerto(elemento,numerolistaClicado,numeroElementoClicado){  
+    let listaDeImagens = elemento.parentNode.parentNode;
+    totalJogadas++;
+    if (objeto[0].questions[numerolistaClicado].answers[numeroElementoClicado].isCorrectAnswer) {
+        totalAcertos++;
+    }
+    for (let i = 0; i < objeto[0].questions[numerolistaClicado].answers.length; i++) {
+        if (objeto[0].questions[numerolistaClicado].answers[numeroElementoClicado] !== objeto[0].questions[numerolistaClicado].answers[i]) {
+            listaDeImagens.children[i].querySelector("img").classList.add("opaco");
+            listaDeImagens.children[i].querySelector("img").removeAttribute("onclick");
+        }
+        listaDeImagens.children[i].querySelector("img").removeAttribute("onclick");
+        
+    }
+    console.log(totalAcertos,totalJogadas);
 }
