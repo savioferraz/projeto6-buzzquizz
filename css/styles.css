@@ -144,7 +144,9 @@ header{
     font-weight: 400;
 }
 
-.caixa-perguntas {
+.conteudo>.caixa-perguntas {
+    display: flex;
+    flex-wrap: wrap;
     box-sizing: border-box;
     height: 676px;
     width: 759px;
