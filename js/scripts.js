@@ -1,14 +1,14 @@
-// const quizes = [];
+ const quizes = [];
 
-// let totalAcertos = 0;
+ let totalAcertos = 0;
 
-// let totalJogadas = 0;
+ let totalJogadas = 0;
 
-// const objeto = [];
+ const objeto = [];
 
-// verificaSeTemQuiz();
+ verificaSeTemQuiz();
 
-// pegaQuizesDoServidor();
+ pegaQuizesDoServidor();
 
 
 function quizesDoServidorNaTela(todosQuizes) {
@@ -148,7 +148,3 @@ function reiniciarQuiz() {
 function voltaHome() {
     window.location.reload();
 }
-
-// const ultimaMensagem = document.querySelector(".xx:last-child");
-//     if(ultimaMensagem !== null){
-//         ultimaMensagem.scrollIntoView();
