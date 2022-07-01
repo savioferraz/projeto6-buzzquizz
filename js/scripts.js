@@ -25,37 +25,23 @@ function pegaQuizesDoServidor() {
 }
 
 function topoPaginaInicial() {
-    document.querySelector(".conteudo").innerHTML += `
-    <div class="todos-os-quizes">
-        <h1 class="titulo">Todos os quizes</h1>
-        <div class="quizes">
-        </div>
-    </div>`;
+    document.querySelector(".conteudo").innerHTML += ` <div class="todos-os-quizes"> <h1 class="titulo">Todos os quizes</h1> <div class="quizes"> </div> </div>`;
 }
 
 function baixoPaginainicial(retorno) {
     if (retorno === false) {
-        document.querySelector(".conteudo").innerHTML = `
-        <h1 class="titulo primeiro">Seus quizes</h1>
-        <div class="quizes-usuario">
-        </div>`;
+        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes</h1> <div class="quizes-usuario"></div>`;
         return;
     }
-
-    document.querySelector(".conteudo").innerHTML = `
-    <div class="seus-quizes">
-    <div class="sem-nehum-quiz">
-        <p>Você não criou nenhum <br> quiz ainda ;(</p>
-        <button onclick="paginaDoQuestionario(this)" >Criar quizz</button>
-    </div> 
-</div>`;
+    document.querySelector(".conteudo").innerHTML = ` <div class="seus-quizes"> <div class="sem-nehum-quiz"> <p>Você não criou nenhum <br> quiz ainda ;(</p> <button onclick="paginaDoQuestionario()" >Criar quizz</button></div></div>`;
 }
 
 function verificaSeTemQuiz() {
     //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial//
-    baixoPaginainicial(true);
+    baixoPaginainicial();
 }
 function criarQuiz() {
+    
 }
 
 function selecionaQuiz(numeroElemento) {
@@ -76,10 +62,6 @@ function colocaAsPerguntas() {
             caixaDePergunta.children[i + 1].querySelector(".respostas").innerHTML += `<div class="resposta-imagem"><img onclick="confereAcerto(this,${i},${e})" src="${objeto[0].questions[i].answers[e].image}"><div class="resposta-legenda">${objeto[0].questions[i].answers[e].text} </div></div>`;
         }
     }
-}
-
-function delayQuiz(todasCaixas,numerolistaClicado) {
-    todasCaixas[numerolistaClicado + 2].querySelector(".respostas").scrollIntoView({ block: "end" });
 }
 
 function confereAcerto(elemento, numerolistaClicado, numeroElementoClicado) {
