@@ -89,6 +89,10 @@ function colocaAsPerguntas() {
     }
 }
 
+function delayQuiz(todasCaixas,numerolistaClicado) {
+    todasCaixas[numerolistaClicado + 2].querySelector(".respostas").scrollIntoView({ block: "end" });
+}
+
 function confereAcerto(elemento, numerolistaClicado, numeroElementoClicado) {
     let todasCaixas = document.querySelector(".conteudo").children;
     let listaDeImagens = elemento.parentNode.parentNode;
