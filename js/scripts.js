@@ -40,9 +40,34 @@ function verificaSeTemQuiz() {
     //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial//
     baixoPaginainicial();
 }
-function criarQuiz() {
-    
+function paginaDoQuestionario() {
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" placeholder="Quantidade de perguntas do quizz"><input type="number" placeholder="Quantidade de níveis do quizz"> </div> <button class="botao-criar" onclick="confereEntrada()">Prosseguir para criar perguntas</button>`;
 }
+function confereEntrada(){
+   const elementosDoQuiz = document.querySelector(".caixa-inputs").children;
+   elementosDoQuiz[0].value;
+   let lista= [];
+   if (elementosDoQuiz[0].value.length<20 && elementosDoQuiz[0].value.length>65) {
+    lista.push("O nome do quiz deve ter mais que 20 e menos de 65 caracters");
+   }
+   if (elementosDoQuiz[1].value !== URL) {
+    lista.push("Deve possuir formato url");
+   }
+   if (Number(elementosDoQuiz[2].value) <=2 && isFloat(Number(elementosDoQuiz[2].value)) ) {
+    lista.push("Deve possuir 3 ou mais perguntas");
+   }
+   if (Number(elementosDoQuiz[3].value) <= 1 && isFloat(Number(elementosDoQuiz[3].value))) {
+    lista.push("Deve possuir no minimo 2 niveis");
+   }
+   if (lista.length !==0) {
+    console.log(Number(elementosDoQuiz[3].value)); 
+   }
+   
+
+}
+
+
+
 
 function selecionaQuiz(numeroElemento) {
     objeto.push(quizes[0].data[numeroElemento]);
