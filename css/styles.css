@@ -256,7 +256,6 @@ input {
 
 .opaco{
     opacity: 30%;
-<<<<<<< HEAD
 }
 
 .voltar {
@@ -264,7 +263,8 @@ input {
     background-color: transparent;
     font-size: 21px;
     color: #818181;
-=======
+}
 
->>>>>>> a579ed8ccc486b302eae5f009ee4ec0702dc0424
+@media (max-width: 1100px) {
+
 }
