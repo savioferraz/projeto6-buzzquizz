@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+  }
+
 body{
     background: #FAFAFA;
     font-family: Roboto;
@@ -7,6 +11,8 @@ header{
     background-color: #EC362D;
     position: fixed;
     top: 0px;
+    left: 0px;
+    right: 0px;
     width: 100%;
     height: 69px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -15,7 +21,7 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 .corConteudo2{
@@ -23,7 +29,7 @@ header{
 }
 
 .conteudo {
-    margin-top: 69px;
+    margin-top: 69px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,10 +53,16 @@ header{
     margin-top: 77px;
 }
 
+.titulo ion-icon {
+    color: #EC362D;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
 .quizes {
     height: 340px;
     display: flex;
-    overflow: auto;
     flex-wrap: wrap;
 }
 
@@ -62,20 +74,24 @@ header{
 }
 
 .imagens {
-    background-color: midnightblue;
     width: 340px;
     height: 181px;
     margin: 7px 6px;
     border-radius: 5px;
     position: relative;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 .imagens .legenda {
     position: absolute;
-    top: 136px;
+    top: 150px;
     left: 17px;
     color: #ffffff;
     z-index: 1;
+    text-shadow: 1px 1px 2px #000000
 }
 
 .sem-nehum-quiz{
@@ -107,6 +123,7 @@ header{
     font-size: 21px;
     color: #EC362D;
     background-color: #ffffff;
+    cursor: pointer;
 }
 
 .conteudo>.quizes-usuario{
@@ -125,13 +142,14 @@ header{
 
 .titulo-quiz {
     top: 69px;
-    background-color: midnightblue;   /* remover */
     width: 100%;
     height: 227px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 21px;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .imagem-titulo img {
     width: 100%;
@@ -142,6 +160,11 @@ header{
     color: #FFFFFF;
     font-size: 39px;
     font-weight: 400;
+    text-shadow: 1px 1px 2px #000000;
+    background-image: unset;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .conteudo>.caixa-perguntas {
@@ -167,6 +190,7 @@ header{
     font-size: 23px;
     font-weight: 700;
     margin-bottom: 10px;
+    text-shadow: 1px 1px 2px #000000
 }
 
 .respostas {
@@ -189,6 +213,15 @@ header{
 .resposta-imagem {
     width: 330px;
     height: 175px;
+    cursor: pointer;
+    margin: 6px;
+}
+
+.resposta-legenda {
+    width: 330px;
+    font-weight: 700;
+    text-align: start;
+    font-size: 19px;
 }
 
 .resposta-imagem >img {
@@ -213,11 +246,25 @@ header{
 }
 
 .criacao {
-    margin: 65px 0 20px 0;
+    margin: 80px 0 20px 0;
     font-size: 23px;
 }
 
-input {
+.cor-de-fundo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #BABABA;
+    font-weight: 400px;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.cor-de-fundo input {
+    width: 100px;
+}
+
+input, .cor-de-fundo {
     width: 552px;
     height: 46px;
     border: 1px solid #D1D1D1;
@@ -264,9 +311,48 @@ input {
     background-color: transparent;
     font-size: 21px;
     color: #818181;
+    margin: 20px auto;
+    cursor: pointer;
 }
 
 @media (max-width: 1100px) {
 
+    .seus-quizes, .todos-os-quizes {
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sem-nehum-quiz {
+        width: 100%;
+        margin: 77px auto auto auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .quizes {
+        width: 360px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+
+    .caixa-perguntas, .titulo-pergunta, .titulo-quiz, .respostas, .conteudo>.titulo, .caixa-inputs {
+        width:100% ;
+    }
+
+    input, .botao-criar, .cor-de-fundo, .resultado {
+        width: 92vw;
+    }
+
+    .resultado {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
