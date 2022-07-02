@@ -19,7 +19,7 @@ function quizesDoServidorNaTela(todosQuizes) {
     quizes.push(todosQuizes);
     topoPaginaInicial();
     for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".todos-os-quizes .quizes").innerHTML += ` <div class="imagens" style="background-image: url('${todosQuizes.data[i].image}')" onclick="selecionaQuiz(${i})" ><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+        document.querySelector(".todos-os-quizes .quizes").innerHTML += ` <div class="imagens" style="background-image: url('${todosQuizes.data[i].image}')" onclick="selecionaQuiz(${i})" ><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
     }
 }
 
@@ -34,7 +34,7 @@ function topoPaginaInicial() {
 
 function baixoPaginainicial(retorno) {
     if (retorno === false) {
-        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes <ion-icon name="add-circle" onclick=""></ion-icon></h1> <div class="quizes-usuario"></div>`;
+        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes</h1> <div class="quizes-usuario"></div>`;
         return;
     }
     document.querySelector(".conteudo").innerHTML = ` <div class="seus-quizes"> <div class="sem-nehum-quiz"> <p>Você não criou nenhum <br> quiz ainda ;(</p> <button onclick="paginaDoQuestionario()" >Criar quizz</button></div></div>`;
@@ -45,7 +45,7 @@ function verificaSeTemQuiz() {
     baixoPaginainicial();
 }
 function paginaDoQuestionario() {
-    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz" minlength="20" maxlength="65"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" min="3" placeholder="Quantidade de perguntas do quizz"><input type="number" min="2" placeholder="Quantidade de níveis do quizz"> </div> <button class="botao-criar" onclick="confereInformacaoBasica()">Prosseguir para criar perguntas</button>`;
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" placeholder="Quantidade de perguntas do quizz"><input type="number" placeholder="Quantidade de níveis do quizz"> </div> <button class="botao-criar" onclick="confereInformacaoBasica()">Prosseguir para criar perguntas</button>`;
 }
 function confereInformacaoBasica(){
     let lista= [];
@@ -94,7 +94,7 @@ function colocaAsPerguntasQuiz(numeroClicado){
     <div class="caixa-inputs" >
         <div class="titulo "onclick="perguntasDoQuiz()" >Pergunta ${numeroClicado}  </div>
         <input type="text" placeholder="Texto da pergunta">
-        <div class="cor-de-fundo"> Cor de fundo da pergunta<input type="color" placeholder="Cor de fundo da pergunta"></div>
+        <input type="text" placeholder="Cor de fundo da pergunta">
         <div class="titulo">Resposta correta</div>
         <input type="text" placeholder="Resposta correta">
         <input type="url" placeholder="URL da imagem">
@@ -126,7 +126,7 @@ function pegaInformacaoQuiz(){
                 color: cadaInput[2].value,
             }      
         ]
-        answers= [
+        answers [
             {
                 text: "Texto da resposta 1",
                 image: "https://http.cat/411.jpg",
@@ -147,8 +147,6 @@ function pegaInformacaoQuiz(){
 
 }
 
-{/* <div class="imagem-titulo"><img src="${objeto[0].image}"> </div> */}
-
 function selecionaQuiz(numeroElemento) {
     objeto.push(quizes[0].data[numeroElemento]);
     colocaTelaDoquiz();
@@ -156,8 +154,7 @@ function selecionaQuiz(numeroElemento) {
 }
 
 function colocaTelaDoquiz() {
-    document.querySelector(".conteudo").innerHTML = ` <div class="titulo-quiz" style="background-image: url('$${objeto[0].image}')"><div class="titulo-imagem" >${objeto[0].title}</div></div>`;
-    // document.querySelector(".titulo-imagem").style.backgroundImage = `${objeto[0].image}`;
+    document.querySelector(".conteudo").innerHTML = ` <div class="titulo-quiz">  <div class="imagem-titulo"><img src="${objeto[0].image}"> </div> <div class="titulo-imagem">${objeto[0].title}</div></div>`;
 }
 
 function colocaAsPerguntas() {
@@ -168,7 +165,6 @@ function colocaAsPerguntas() {
             caixaDePergunta.children[i + 1].querySelector(".respostas").innerHTML += `<div class="resposta-imagem"><img onclick="confereAcerto(this,${i},${e})" src="${objeto[0].questions[i].answers[e].image}"><div class="resposta-legenda">${objeto[0].questions[i].answers[e].text} </div></div>`;
         }
     }
-    document.querySelector(".conteudo").innerHTML += `<button class="voltar" onclick="voltaHome()">Voltar para home</button>`;
 }
 
 function delayQuiz(todasCaixas,numerolistaClicado) {
@@ -211,7 +207,7 @@ function finalizaQuiz() {
     const porcentagem = (totalAcertos * 100) / (objeto[0].questions.length)
     for (let i = 0; i < objeto[0].levels.length; i++) {
         if (porcentagem >= objeto[0].levels[i].minValue) {
-            document.querySelector(".conteudo").innerHTML += `<div class="caixa-perguntas"> <div class="titulo-pergunta" >${porcentagem.toFixed(0)}% de acerto: ${objeto[0].levels[i].title} </div><div class="respostas resultado"><div class="resposta-imagem"><img src="${objeto[0].levels[i].image}"></div><div class="resposta-legenda"> ${objeto[0].levels[i].text}</div></div></div> <button class="botao-criar" onclick="reiniciarQuiz()">Reiniciar Quizz</button><button class="voltar" onclick="voltaHome()" >Voltar pra home</button>`;
+            document.querySelector(".conteudo").innerHTML += `<div class="caixa-perguntas"> <div class="titulo-pergunta" >${porcentagem.toFixed(0)}% de acerto: ${objeto[0].levels[i].title} </div><div class="respostas"><div class="resposta-imagem"><img src="${objeto[0].levels[i].image}"></div><div class="resposta-legenda"> ${objeto[0].levels[i].text}</div></div></div> <button class="botao-criar" onclick="reiniciarQuiz()">Reiniciar Quizz</button><button class="voltar" onclick="voltaHome()" >Voltar pra home</button>`;
             let ultimaDiv = document.querySelector(".conteudo").lastChild;
              setTimeout(ultimaDiv.scrollIntoView, 2000);
             return;
@@ -219,7 +215,7 @@ function finalizaQuiz() {
     }
     for (let i = 0; i < objeto[0].levels.length; i++) {
         if (porcentagem <= objeto[0].levels[i].minValue) {
-            document.querySelector(".conteudo").innerHTML += `<div class="caixa-perguntas"> <div class="titulo-pergunta" >${porcentagem.toFixed(0)}% de acerto: ${objeto[0].levels[i].title} </div><div class="respostas resultado"><div class="resposta-imagem"><img src="${objeto[0].levels[i].image}"></div><div class="resposta-legenda">${objeto[0].levels[i].text} </div></div></div> `;
+            document.querySelector(".conteudo").innerHTML += `<div class="caixa-perguntas"> <div class="titulo-pergunta" >${porcentagem.toFixed(0)}% de acerto: ${objeto[0].levels[i].title} </div><div class="respostas"><div class="resposta-imagem"><img src="${objeto[0].levels[i].image}"></div><div class="resposta-legenda">${objeto[0].levels[i].text} </div></div></div> `;
             document.querySelector(".conteudo").lastChild.scrollIntoView();
             return;
         }
