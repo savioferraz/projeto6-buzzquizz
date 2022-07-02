@@ -1,14 +1,14 @@
-// const quizes = [];
+const quizes = [];
 
-// let totalAcertos = 0;
+let totalAcertos = 0;
 
-// let totalJogadas = 0;
+let totalJogadas = 0;
 
-// const objeto = [];
+const objeto = [];
 
-// verificaSeTemQuiz();
+verificaSeTemQuiz();
 
-// pegaQuizesDoServidor();
+pegaQuizesDoServidor();
 
 
 function quizesDoServidorNaTela(todosQuizes) {
