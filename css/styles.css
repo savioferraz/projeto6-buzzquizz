@@ -240,7 +240,7 @@ header{
 
 /* Tela 3 */
 
-.caixa-inputs {
+.caixa-inputs{
     width: 600px;
     background-color: #ffffff ;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -326,6 +326,20 @@ input, .cor-de-fundo {
 
 @media (max-width: 1100px) {
 
+    input{
+        width: 100%;
+    }
+
+    .recolhida {
+        height: 60px;
+        width: 92vw;;
+        flex-direction: row;
+        align-items: center;    
+    }
+    .total-mente{
+        width: 92vw;
+    }
+
     .seus-quizes, .todos-os-quizes {
         width: 100%;
         flex-direction: column;
@@ -350,11 +364,11 @@ input, .cor-de-fundo {
         margin: auto;
     }
 
-    .caixa-perguntas, .titulo-pergunta, .titulo-quiz, .respostas, .conteudo>.titulo, .caixa-inputs {
+    .caixa-perguntas, .titulo-pergunta, .titulo-quiz, .respostas, .conteudo>.titulo {
         width:100% ;
     }
 
-    input, .botao-criar, .cor-de-fundo, .resultado {
+    .botao-criar, .cor-de-fundo, .resultado, .caixa-inputs{
         width: 92vw;
     }
 

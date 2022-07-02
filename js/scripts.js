@@ -1,6 +1,6 @@
  const componentesQuiz=[];
  
- const componentesQuiz1={};
+ const componentesQuiz1=[];
 
  const quizes = [];
 
@@ -14,7 +14,7 @@
 
  pegaQuizesDoServidor();
 
-
+ 
 function quizesDoServidorNaTela(todosQuizes) {
     quizes.push(todosQuizes);
     topoPaginaInicial();
@@ -52,7 +52,7 @@ function confereInformacaoBasica(){
     lista.splice(0,lista.length )
     const elementosDoQuiz = document.querySelector(".caixa-inputs").children;
    elementosDoQuiz[0].value;
-   if (elementosDoQuiz[0].value.length<20 || elementosDoQuiz[0].value.length>65) {
+  /* if (elementosDoQuiz[0].value.length<20 || elementosDoQuiz[0].value.length>65) {
     lista.push("O nome do quiz deve ter mais que 20 e menos de 65 caracters");
    }
    if (Number(elementosDoQuiz[2].value) <=2 || Number.isInteger(Number(elementosDoQuiz[2].value) !== true) ) {
@@ -72,9 +72,9 @@ function confereInformacaoBasica(){
    if (lista.length !==0) {
     alert(lista);
     return;   
-    }
+    }*/
     console.log(lista);
-    componentesQuiz.push(elementosDoQuiz[0],elementosDoQuiz[1],elementosDoQuiz[2],elementosDoQuiz[3]);
+    componentesQuiz.push(elementosDoQuiz[0],elementosDoQuiz[1],elementosDoQuiz[2],elementosDoQuiz[3]);    
     document.querySelector(".conteudo").innerHTML = ``;
     perguntasDoQuiz();
 
@@ -84,15 +84,15 @@ function confereInformacaoBasica(){
 function perguntasDoQuiz(){
     document.querySelector(".conteudo").innerHTML =`<div class="titulo criacao">Crie suas perguntas</div>`;
     for (let index = 0; index < componentesQuiz[2].value; index++) {
-        document.querySelector(".conteudo").innerHTML += ` <div class="cada-input${index+1}"><div class="caixa-inputs recolhida" onclick="colocaAsPerguntasQuiz(${index+1})"><div class="titulo">Pergunta ${index+1}</div> <ion-icon name="create-outline"></ion-icon></div></div>`;
+        document.querySelector(".conteudo").innerHTML += ` <div class="cada-input${index+1} cada-inputs"><div class="caixa-inputs recolhida" onclick="colocaAsPerguntasQuiz(${index+1})"><div class="titulo">Pergunta ${index+1}</div> <ion-icon name="create-outline"></ion-icon></div></div>`;
     }
-    document.querySelector(".conteudo").lastChild.innerHTML +=`<button class="botao-criar" onclick="pegaInformacaoQuiz()">Prosseguir para criar niveis</button>`;
+    document.querySelector(".conteudo").innerHTML +=`<button class="botao-criar" onclick="pegaInformacao1Quiz()">Prosseguir para criar niveis</button>`;
 } 
 
 function colocaAsPerguntasQuiz(numeroClicado){
     document.querySelector(`.cada-input${numeroClicado}`).innerHTML = `
     <div class="caixa-inputs" >
-        <div class="titulo "onclick="perguntasDoQuiz()" >Pergunta ${numeroClicado}  </div>
+        <div class="titulo" >Pergunta ${numeroClicado}  </div>
         <input type="text" placeholder="Texto da pergunta">
         <input type="text" placeholder="Cor de fundo da pergunta">
         <div class="titulo">Resposta correta</div>
@@ -112,38 +112,73 @@ function colocaAsPerguntasQuiz(numeroClicado){
 }           
 //https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffotos-gratis%2Ffoto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Ffotos%2Farvore&tbnid=1d0KYXzR2E96IM&vet=12ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ..i&docid=IIdBpbgBOVfhdM&w=2000&h=1334&q=fotos&client=ubuntu&ved=2ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ
 
-function pegaInformacaoQuiz(){
-    let cadaInput = document.querySelector(`.cada-input${i} >.caixa-inputs`).children;
-    componentesQuiz1 ={
-        title: componentesQuiz[0],
-        image: componentesQuiz[1],
-    }
-
-    for (let i = 0; i < elementosDoQuiz[2]; i++) {
-        questions = [
-            {
-                title: cadaInput[1].value,
-                color: cadaInput[2].value,
-            }      
-        ]
-        answers [
-            {
-                text: "Texto da resposta 1",
-                image: "https://http.cat/411.jpg",
-                isCorrectAnswer: true
-            },
-            {
-                text: "Texto da resposta 2",
-                image: "https://http.cat/412.jpg",
-                isCorrectAnswer: false
-            }
-        ]
+function pegaInformacao1Quiz(){
+    let cadaInput = document.querySelector(`.conteudo`).children;
+    objetoQuiz= {
+        title: componentesQuiz[0].value,
+        image: componentesQuiz[1].value,
+        questions: [],
+        levels: []
+    };
 
 
-    }
+    console.log(objetoQuiz);
+    for (let i = 0; i < componentesQuiz[2].value; i++) {
+        let entradas = cadaInput[i+1].children[0].children;
+        objetoQuiz.questions.push({
+        title: entradas[1].value,
+        image: entradas[2].value,
+        answers: []
+        });
+        objetoQuiz.questions[i].answers.push({
+        text: entradas[4].value,
+        image: entradas[5].value,
+        isCorrectAnswer: true
+    },
+    {
+        text: entradas[7].value,
+        image: entradas[8].value,
+        isCorrectAnswer: false
+    });
     
-        
+}
+    componentesQuiz1.push(objetoQuiz);
+    telaDeNiveis();
+}
+  
+function telaDeNiveis(){
+    document.querySelector(".conteudo").innerHTML=`<div class="titulo criacao">Agora, decida os níveis</div>`; 
+   for (let index = 0; index < componentesQuiz[3].value; index++) {
+    document.querySelector(".conteudo").innerHTML+=`<div class="total${index} total-mente"><div class="caixa-inputs recolhida" onclick="completaNiveis(${index})"><div class="titulo">Nível ${index+1}</div> <ion-icon name="create-outline"></ion-icon></div></div>`;
+    }
+    document.querySelector(".conteudo").innerHTML+=`<button class="botao-criar" onclick="pegaInformacao2Quiz()">Finalizar Quiz</button>`;
+}
 
+function pegaInformacao2Quiz(){
+    let cadaInput = document.querySelector(`.conteudo`).children;
+    
+    for (let index = 0; index < componentesQuiz[3].value; index++) {
+        let entradas = cadaInput[index+1].children[0].children;
+        componentesQuiz1[0].levels.push({
+            title: entradas[1].value,
+            image: entradas[2].value,
+            text:entradas[3].value,
+            minValue:entradas[4].value
+    });
+    }
+    console.log(componentesQuiz1);
+    
+}
+
+function completaNiveis(local){
+    let i = document.querySelector(`.total${local}`);
+    i.innerHTML = ` <div class="caixa-inputs">
+    <div class="titulo">Nível ${local+1}</div>
+    <input type="text" placeholder="Titulo do nível">
+    <input type="number" placeholder="% de acerto mínima">
+    <input type="url" placeholder="URL da imagem do nível">
+    <input type="text" placeholder="Descrição do nível">
+</div>`;
 
 }
 
