@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const quizes = [];
 
 let totalAcertos = 0;
@@ -9,6 +10,23 @@ const objeto = [];
 verificaSeTemQuiz();
 
 pegaQuizesDoServidor();
+=======
+ const componentesQuiz=[];
+ 
+ const componentesQuiz1={};
+
+ const quizes = [];
+
+ let totalAcertos = 0;
+
+ let totalJogadas = 0;
+
+ const objeto = [];
+
+ verificaSeTemQuiz();
+
+ pegaQuizesDoServidor();
+>>>>>>> f6c709f2018b33ef28eb4a6c6bb6d775124b82b2
 
 
 function quizesDoServidorNaTela(todosQuizes) {
@@ -25,37 +43,122 @@ function pegaQuizesDoServidor() {
 }
 
 function topoPaginaInicial() {
-    document.querySelector(".conteudo").innerHTML += `
-    <div class="todos-os-quizes">
-        <h1 class="titulo">Todos os quizes</h1>
-        <div class="quizes">
-        </div>
-    </div>`;
+    document.querySelector(".conteudo").innerHTML += ` <div class="todos-os-quizes"> <h1 class="titulo">Todos os quizes</h1> <div class="quizes"> </div> </div>`;
 }
 
 function baixoPaginainicial(retorno) {
     if (retorno === false) {
-        document.querySelector(".conteudo").innerHTML = `
-        <h1 class="titulo primeiro">Seus quizes</h1>
-        <div class="quizes-usuario">
-        </div>`;
+        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes</h1> <div class="quizes-usuario"></div>`;
         return;
     }
-
-    document.querySelector(".conteudo").innerHTML = `
-    <div class="seus-quizes">
-    <div class="sem-nehum-quiz">
-        <p>Você não criou nenhum <br> quiz ainda ;(</p>
-        <button onclick="paginaDoQuestionario(this)" >Criar quizz</button>
-    </div> 
-</div>`;
+    document.querySelector(".conteudo").innerHTML = ` <div class="seus-quizes"> <div class="sem-nehum-quiz"> <p>Você não criou nenhum <br> quiz ainda ;(</p> <button onclick="paginaDoQuestionario()" >Criar quizz</button></div></div>`;
 }
 
 function verificaSeTemQuiz() {
     //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial//
-    baixoPaginainicial(true);
+    baixoPaginainicial();
 }
-function criarQuiz() {
+function paginaDoQuestionario() {
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" placeholder="Quantidade de perguntas do quizz"><input type="number" placeholder="Quantidade de níveis do quizz"> </div> <button class="botao-criar" onclick="confereInformacaoBasica()">Prosseguir para criar perguntas</button>`;
+}
+function confereInformacaoBasica(){
+    let lista= [];
+    lista.splice(0,lista.length )
+    const elementosDoQuiz = document.querySelector(".caixa-inputs").children;
+   elementosDoQuiz[0].value;
+   if (elementosDoQuiz[0].value.length<20 || elementosDoQuiz[0].value.length>65) {
+    lista.push("O nome do quiz deve ter mais que 20 e menos de 65 caracters");
+   }
+   if (Number(elementosDoQuiz[2].value) <=2 || Number.isInteger(Number(elementosDoQuiz[2].value) !== true) ) {
+    lista.push("Deve possuir 3 ou mais perguntas");
+   }
+   if (Number(elementosDoQuiz[3].value) <= 1 || Number.isInteger(Number(elementosDoQuiz[2].value) !== true)) {
+    lista.push("Deve possuir no minimo 2 niveis");
+   }
+   
+    try {
+        new URL(elementosDoQuiz[1].value)
+        }
+     catch (err) {
+        lista.push("Imagem deve possuir formato url");
+           }
+        
+   if (lista.length !==0) {
+    alert(lista);
+    return;   
+    }
+    console.log(lista);
+    componentesQuiz.push(elementosDoQuiz[0],elementosDoQuiz[1],elementosDoQuiz[2],elementosDoQuiz[3]);
+    document.querySelector(".conteudo").innerHTML = ``;
+    perguntasDoQuiz();
+
+}
+
+
+function perguntasDoQuiz(){
+    document.querySelector(".conteudo").innerHTML =`<div class="titulo criacao">Crie suas perguntas</div>`;
+    for (let index = 0; index < componentesQuiz[2].value; index++) {
+        document.querySelector(".conteudo").innerHTML += ` <div class="cada-input${index+1}"><div class="caixa-inputs recolhida" onclick="colocaAsPerguntasQuiz(${index+1})"><div class="titulo">Pergunta ${index+1}</div> <ion-icon name="create-outline"></ion-icon></div></div>`;
+    }
+    document.querySelector(".conteudo").lastChild.innerHTML +=`<button class="botao-criar" onclick="pegaInformacaoQuiz()">Prosseguir para criar niveis</button>`;
+} 
+
+function colocaAsPerguntasQuiz(numeroClicado){
+    document.querySelector(`.cada-input${numeroClicado}`).innerHTML = `
+    <div class="caixa-inputs" >
+        <div class="titulo "onclick="perguntasDoQuiz()" >Pergunta ${numeroClicado}  </div>
+        <input type="text" placeholder="Texto da pergunta">
+        <input type="text" placeholder="Cor de fundo da pergunta">
+        <div class="titulo">Resposta correta</div>
+        <input type="text" placeholder="Resposta correta">
+        <input type="url" placeholder="URL da imagem">
+        <div class="titulo">Respostas incorretas</div>
+        <input type="text" placeholder="Resposta incorreta 1">
+        <input type="url" placeholder="URL da imagem 1">
+        <input type="text" placeholder="Resposta incorreta 2">
+        <input type="url" placeholder="URL da imagem 2">
+        <input type="text" placeholder="Resposta incorreta 3">
+        <input type="url" placeholder="URL da imagem 3">
+        <input type="text" placeholder="Resposta incorreta 4">
+        <input type="url" placeholder="URL da imagem 4">
+        </div>`;
+         
+}           
+//https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffotos-gratis%2Ffoto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Ffotos%2Farvore&tbnid=1d0KYXzR2E96IM&vet=12ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ..i&docid=IIdBpbgBOVfhdM&w=2000&h=1334&q=fotos&client=ubuntu&ved=2ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ
+
+function pegaInformacaoQuiz(){
+    let cadaInput = document.querySelector(`.cada-input${i} >.caixa-inputs`).children;
+    componentesQuiz1 ={
+        title: componentesQuiz[0],
+        image: componentesQuiz[1],
+    }
+
+    for (let i = 0; i < elementosDoQuiz[2]; i++) {
+        questions = [
+            {
+                title: cadaInput[1].value,
+                color: cadaInput[2].value,
+            }      
+        ]
+        answers= [
+            {
+                text: "Texto da resposta 1",
+                image: "https://http.cat/411.jpg",
+                isCorrectAnswer: true
+            },
+            {
+                text: "Texto da resposta 2",
+                image: "https://http.cat/412.jpg",
+                isCorrectAnswer: false
+            }
+        ]
+
+
+    }
+    
+        
+
+
 }
 
 function selecionaQuiz(numeroElemento) {
@@ -149,6 +252,44 @@ function voltaHome() {
     window.location.reload();
 }
 
-// const ultimaMensagem = document.querySelector(".xx:last-child");
-//     if(ultimaMensagem !== null){
-//         ultimaMensagem.scrollIntoView();
+
+// let cadaInput = document.querySelector(`.cada-input${1} >.caixa-inputs`).children;
+//     let conta=0;
+//     let lista=[];
+//     lista.splice(0,lista.length )
+//     const listaDecimal= ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
+//     if (cadaInput[1].value.length < 20 || cadaInput[4].value === "") {
+//         lista.push("Texto da pergunta menor que 20");
+//     }
+    
+//     for (let index = 1; index < cadaInput[2].value.length; index++) {
+//         for (let i = 0; i < listaDecimal.length; i++) {
+//             if (cadaInput[2].value.charAt(index) === listaDecimal[i]) {
+//                 conta++;
+//             }
+//         }
+//     }
+
+//     if (cadaInput[4].value === "" || cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7) {
+//         lista.push("Não é uma cor valida");
+
+//     }
+//     if(cadaInput[4].value === "" ){
+//         lista.push("Você precisa colocar a resposta correta");
+//     } 
+//     if(cadaInput[4].value === "" ){
+//         lista.push("Você precisa colocar a resposta correta");
+//     }
+    
+//     try {
+//         new URL(cadaInput[4].value);
+//         }
+//      catch (err) {
+//         lista.push("Imagem deve possuir formato url");
+//            }
+
+           
+//     console.log();
+//     console.log(conta+1);
+//     console.log(lista);
+//     console.log(cadaInput[4]);
