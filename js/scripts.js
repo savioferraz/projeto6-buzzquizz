@@ -105,8 +105,6 @@ function colocaAsPerguntasQuiz(numeroClicado){
         <input type="url" placeholder="URL da imagem 2">
         <input type="text" placeholder="Resposta incorreta 3">
         <input type="url" placeholder="URL da imagem 3">
-        <input type="text" placeholder="Resposta incorreta 4">
-        <input type="url" placeholder="URL da imagem 4">
         </div>`;
          
 }           
