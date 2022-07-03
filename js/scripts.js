@@ -221,7 +221,7 @@ function tratarError(){
 }
 
 function telaFinalizaQuiz(){
-    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Seu Quiz está pronto!</div><div class="imagem-com-titulo"><img src="${componentesQuiz1[0].image}"><div class="texto-da-imagem">${componentesQuiz1[0].text}</div><button class="botao-criar" onclick="">Acessar Quiz</button> <button class="voltar" onclick="voltaHome()">Voltar para home</button>`;
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Seu Quiz está pronto!</div><div class="imagem-com-titulo"><img src="${componentesQuiz1[0].image}"><div class="texto-da-imagem">${componentesQuiz1[0].title}</div><button class="botao-criar" onclick="">Acessar Quiz</button><br> <button class="voltar" onclick="voltaHome()">Voltar para home</button>`;
     
 }
 function completaNiveis(local){
