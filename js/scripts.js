@@ -52,7 +52,7 @@ function confereInformacaoBasica(){
     lista.splice(0,lista.length )
     const elementosDoQuiz = document.querySelector(".caixa-inputs").children;
    elementosDoQuiz[0].value;
-  /* if (elementosDoQuiz[0].value.length<20 || elementosDoQuiz[0].value.length>65) {
+   if (elementosDoQuiz[0].value.length<20 || elementosDoQuiz[0].value.length>65) {
     lista.push("O nome do quiz deve ter mais que 20 e menos de 65 caracters");
    }
    if (Number(elementosDoQuiz[2].value) <=2 || Number.isInteger(Number(elementosDoQuiz[2].value) !== true) ) {
@@ -72,7 +72,7 @@ function confereInformacaoBasica(){
    if (lista.length !==0) {
     alert(lista);
     return;   
-    }*/
+    }
     console.log(lista);
     componentesQuiz.push(elementosDoQuiz[0],elementosDoQuiz[1],elementosDoQuiz[2],elementosDoQuiz[3]);    
     document.querySelector(".conteudo").innerHTML = ``;
@@ -113,12 +113,13 @@ function colocaAsPerguntasQuiz(numeroClicado){
 //https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffotos-gratis%2Ffoto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Ffotos%2Farvore&tbnid=1d0KYXzR2E96IM&vet=12ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ..i&docid=IIdBpbgBOVfhdM&w=2000&h=1334&q=fotos&client=ubuntu&ved=2ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ
 
 function pegaInformacao1Quiz(){
+    const lista=[];
     let cadaInput = document.querySelector(`.conteudo`).children;
     objetoQuiz= {
         title: componentesQuiz[0].value,
         image: componentesQuiz[1].value,
+        levels: [],
         questions: [],
-        levels: []
     };
 
 
@@ -127,7 +128,7 @@ function pegaInformacao1Quiz(){
         let entradas = cadaInput[i+1].children[0].children;
         objetoQuiz.questions.push({
         title: entradas[1].value,
-        image: entradas[2].value,
+        color: entradas[2].value,
         answers: []
         });
         objetoQuiz.questions[i].answers.push({
@@ -140,9 +141,51 @@ function pegaInformacao1Quiz(){
         image: entradas[8].value,
         isCorrectAnswer: false
     });
+    if (entradas[9].value !=="" && entradas[10].value !== "") {
+        objetoQuiz.questions[i].answers.push(
+        {
+            text: entradas[9].value,
+            image: entradas[10].value,
+            isCorrectAnswer: false
+        })
+    };
+    if (entradas[11].value !=="" && entradas[12].value !== "") {
+        objetoQuiz.questions[i].answers.push(
+        {
+            text: entradas[11].value,
+            image: entradas[12].value,
+            isCorrectAnswer: false
+        })
+    };
+    if (entradas[13].value !=="" && entradas[14].value !== "") {
+        objetoQuiz.questions[i].answers.push(
+        {
+            text: entradas[13].value,
+            image: entradas[14].value,
+            isCorrectAnswer: false
+        });
+    }
+        if ((entradas[9].value ==="" && entradas[10].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
+            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
+
+        }
+        if ((entradas[11].value ==="" && entradas[12].value !== "")  || (entradas[11].value !=="" && entradas[12].value === "")) {
+            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
+
+        }
+        if ((entradas[13].value ==="" && entradas[14].value !== "")  || (entradas[13].value !=="" && entradas[14].value === "")) {
+            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);    
+    }  
     
-}
+    }
+
+    if (lista.length !== 0) {
+        alert(lista);
+        lista.splice(0,lista.length );
+        return;
+    }
     componentesQuiz1.push(objetoQuiz);
+    
     telaDeNiveis();
 }
   
@@ -161,15 +204,26 @@ function pegaInformacao2Quiz(){
         let entradas = cadaInput[index+1].children[0].children;
         componentesQuiz1[0].levels.push({
             title: entradas[1].value,
-            image: entradas[2].value,
-            text:entradas[3].value,
-            minValue:entradas[4].value
+            image: entradas[3].value,
+            text: entradas[4].value,
+            minValue: Number(entradas[2].value)
     });
     }
-    console.log(componentesQuiz1);
+    console.log(componentesQuiz1[0]);
+    const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
+    promessa.catch(tratarError);
+    promessa.then(telaFinalizaQuiz);
     
 }
 
+function tratarError(){
+    alert("Algo deu errado");
+}
+
+function telaFinalizaQuiz(){
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Seu Quiz está pronto!</div><div class="imagem-com-titulo"><img src="${componentesQuiz1[0].image}"><div class="texto-da-imagem">${componentesQuiz1[0].text}</div><button class="botao-criar" onclick="">Acessar Quiz</button> <button class="voltar" onclick="voltaHome()">Voltar para home</button>`;
+    
+}
 function completaNiveis(local){
     let i = document.querySelector(`.total${local}`);
     i.innerHTML = ` <div class="caixa-inputs">

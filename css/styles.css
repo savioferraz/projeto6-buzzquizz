@@ -37,6 +37,10 @@ header{
     text-align: center;
 }
 
+.todos-os-quizes>h1{
+    text-align: start;
+}
+
 .titulo {
     font-size: 20px;
     font-weight: 700;
@@ -64,6 +68,7 @@ header{
     height: 340px;
     display: flex;
     flex-wrap: wrap;
+    overflow: scroll;
 }
 
 .imagens img{
@@ -86,6 +91,9 @@ header{
 }
 
 .imagens .legenda {
+    padding-left: 10px;
+    padding-right: 10px;
+    word-break: break-all;
     position: absolute;
     top: 150px;
     left: 17px;
@@ -324,7 +332,23 @@ input, .cor-de-fundo {
     cursor: pointer;
 }
 
+.imagem-com-titulo>img{
+    position: relative;
+}
+.texto-da-imagem{
+position:absolute;
+}
+
 @media (max-width: 1100px) {
+    body{
+        padding: 40px;
+    }
+    .todos-os-quizes>h1{
+        text-align: center;
+    }
+    .titulo{
+        text-align: center;
+    }
 
     input{
         width: 100%;
@@ -362,6 +386,7 @@ input, .cor-de-fundo {
         align-items: center;
         justify-content: center;
         margin: auto;
+        overflow: scroll;
     }
 
     .caixa-perguntas, .titulo-pergunta, .titulo-quiz, .respostas, .conteudo>.titulo {
