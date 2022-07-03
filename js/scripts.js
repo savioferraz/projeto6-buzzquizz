@@ -111,8 +111,54 @@ function colocaAsPerguntasQuiz(numeroClicado){
 //https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffotos-gratis%2Ffoto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Ffotos%2Farvore&tbnid=1d0KYXzR2E96IM&vet=12ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ..i&docid=IIdBpbgBOVfhdM&w=2000&h=1334&q=fotos&client=ubuntu&ved=2ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ
 
 function pegaInformacao1Quiz(){
-    const lista=[];
-    let cadaInput = document.querySelector(`.conteudo`).children;
+    let cadaInputtotal = document.querySelector(`.conteudo`).children;
+    for (let e = 1; e < cadaInputtotal.length-1; e++) {
+    let cadaInput = cadaInputtotal[e].children[0].children;
+    let conta=0;
+     let lista1=[];
+     console.log(cadaInput);
+     lista1.splice(0,lista1.length )
+     const listaDecimal= ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
+     if (cadaInput[1].value.length < 20) {
+         lista1.push("Texto da pergunta menor que 20");
+     }
+ 
+     for (let index = 1; index < cadaInput[2].value.length; index++) {
+         for (let i = 0; i < listaDecimal.length; i++) {
+             if (cadaInput[2].value.charAt(index) === listaDecimal[i]) {
+                 conta++;
+             }
+         }
+     }
+     if (cadaInput[4].value === "" || cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7) {
+         lista1.push("Não é uma cor valida");
+     }
+     if(cadaInput[7].value === "" ){
+         lista1.push("Você precisa colocar a resposta incorreta");
+     }
+ 
+     try {
+         new URL(cadaInput[5].value);
+         new URL(cadaInput[8].value); 
+        }
+      catch (err) {
+         lista1.push(" Imagem deve possuir formato url");
+            }
+        
+     console.log();
+     console.log(conta+1);
+     console.log(lista1);
+     console.log(cadaInput[4]);
+        }
+
+
+
+
+
+
+
+
+    /*const lista=[];
     objetoQuiz= {
         title: componentesQuiz[0].value,
         image: componentesQuiz[1].value,
@@ -174,7 +220,7 @@ try{
         alert(lista);
         lista.splice(0,lista.length );
         return;
-    }
+    }*/
     componentesQuiz1.push(objetoQuiz);
     
     telaDeNiveis();
@@ -190,7 +236,7 @@ function telaDeNiveis(){
 
 function pegaInformacao2Quiz(){
     let cadaInput = document.querySelector(`.conteudo`).children;
-    
+    try{
     for (let index = 0; index < componentesQuiz[3].value; index++) {
         let entradas = cadaInput[index+1].children[0].children;
         componentesQuiz1[0].levels.push({
@@ -200,7 +246,13 @@ function pegaInformacao2Quiz(){
             minValue: Number(entradas[2].value)
     });
     }
-    console.log(componentesQuiz1[0]);
+}
+catch(err){
+     alert("Preencha os campos necessários")
+    componentesQuiz1[0].levels.splice(0,componentesQuiz1[0].levels.length );
+    return;
+
+}
     const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
     promessa.catch(tratarError);
     promessa.then(telaFinalizaQuiz);
@@ -319,43 +371,4 @@ function voltaHome() {
 }
 
 
-// let cadaInput = document.querySelector(`.cada-input${1} >.caixa-inputs`).children;
-//     let conta=0;
-//     let lista=[];
-//     lista.splice(0,lista.length )
-//     const listaDecimal= ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
-//     if (cadaInput[1].value.length < 20 || cadaInput[4].value === "") {
-//         lista.push("Texto da pergunta menor que 20");
-//     }
-    
-//     for (let index = 1; index < cadaInput[2].value.length; index++) {
-//         for (let i = 0; i < listaDecimal.length; i++) {
-//             if (cadaInput[2].value.charAt(index) === listaDecimal[i]) {
-//                 conta++;
-//             }
-//         }
-//     }
-
-//     if (cadaInput[4].value === "" || cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7) {
-//         lista.push("Não é uma cor valida");
-
-//     }
-//     if(cadaInput[4].value === "" ){
-//         lista.push("Você precisa colocar a resposta correta");
-//     } 
-//     if(cadaInput[4].value === "" ){
-//         lista.push("Você precisa colocar a resposta correta");
-//     }
-    
-//     try {
-//         new URL(cadaInput[4].value);
-//         }
-//      catch (err) {
-//         lista.push("Imagem deve possuir formato url");
-//            }
-
-           
-//     console.log();
-//     console.log(conta+1);
-//     console.log(lista);
-//     console.log(cadaInput[4]);
+ 

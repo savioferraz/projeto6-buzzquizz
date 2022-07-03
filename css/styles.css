@@ -340,9 +340,6 @@ position:absolute;
 }
 
 @media (max-width: 1100px) {
-    body{
-        padding: 40px;
-    }
     .todos-os-quizes>h1{
         text-align: center;
     }
