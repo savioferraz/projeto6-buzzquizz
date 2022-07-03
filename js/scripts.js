@@ -120,7 +120,7 @@ function pegaInformacao1Quiz(){
         questions: [],
     };
 
-
+try{
     console.log(objetoQuiz);
     for (let i = 0; i < componentesQuiz[2].value; i++) {
         let entradas = cadaInput[i+1].children[0].children;
@@ -155,14 +155,6 @@ function pegaInformacao1Quiz(){
             isCorrectAnswer: false
         })
     };
-    if (entradas[13].value !=="" && entradas[14].value !== "") {
-        objetoQuiz.questions[i].answers.push(
-        {
-            text: entradas[13].value,
-            image: entradas[14].value,
-            isCorrectAnswer: false
-        });
-    }
         if ((entradas[9].value ==="" && entradas[10].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
             lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
 
@@ -171,12 +163,13 @@ function pegaInformacao1Quiz(){
             lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
 
         }
-        if ((entradas[13].value ==="" && entradas[14].value !== "")  || (entradas[13].value !=="" && entradas[14].value === "")) {
-            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);    
-    }  
-    
     }
-
+}
+    catch(err){
+        alert("Preencha os campos necessários")
+        lista.splice(0,lista.length );
+        return;
+    }
     if (lista.length !== 0) {
         alert(lista);
         lista.splice(0,lista.length );
