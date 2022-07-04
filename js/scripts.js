@@ -2,6 +2,12 @@
  
  const componentesQuiz1=[];
 
+const listaLocalUsuario=[];
+ 
+const totalQuizezzz = [];
+
+const listaNossoArrey=[];
+
  const quizes = [];
 
  let totalAcertos = 0;
@@ -36,21 +42,39 @@ function topoPaginaInicial() {
 
 function baixoPaginainicial(retorno) {
     if (retorno === false) {
-        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes <ion-icon name="add-circle" onclick=""></ion-icon></h1> <div class="quizes-usuario"></div>`;
+        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes <ion-icon name="add-circle" onclick="paginaDoQuestionario()"></ion-icon></h1> <div class="quizes-usuario"></div>`;
         return;
     }
     document.querySelector(".conteudo").innerHTML = ` <div class="seus-quizes"> <div class="sem-nehum-quiz"> <p>Você não criou nenhum <br> quiz ainda ;(</p> <button onclick="paginaDoQuestionario()" >Criar quizz</button></div></div>`;
 }
 
+function selecionaQuizUsuario(numeroElemento) {
+    let t = listaLocalUsuario[numeroElemento];
+    
+    objeto.push(t[numeroElemento]);
+    colocaTelaDoquiz();
+    colocaAsPerguntas();
+}
+
 function verificaSeTemQuiz() {
-    //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial
-    // if (!quizzUsuario) {
-    //     for (i = 0; i < quizzUsuario.length; i++) {
+   try{
+  const arreyslocais = localStorage.getItem(listaNossoArrey);      
+    const listaLocal = JSON.parse(arreyslocais);
+    console.log(listaLocal);
+    listaLocalUsuario.push(listaLocal);
+    if ( listaLocal.length !==0 ) {
+        baixoPaginainicial(false);    
+        for (let index = 0; index < listaLocal.length; index++) {
+            document.querySelector(".quizes-usuario").innerHTML +=`<div class="imagens" onclick="selecionaQuizUsuario(${index})" ><img src="${listaLocal[index].image}"><h2 class="legenda">${listaLocal[index].title}</h2></div>`;
 
-    //     }
-    // }
+        }
 
-    baixoPaginainicial();
+        return;
+    }
+}
+catch(err){
+        baixoPaginainicial(true);
+}
 }
 function paginaDoQuestionario() {
     document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz" minlength="20" maxlength="65"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" min="3" placeholder="Quantidade de perguntas do quizz (mínimo 3)"><input type="number" min="2" placeholder="Quantidade de níveis do quizz (mínimo 2)"> </div> <button class="botao-criar" onclick="confereInformacaoBasica()">Prosseguir para criar perguntas</button><button class="voltar" onclick="voltaHome()" >Voltar pra home</button>`;
@@ -81,7 +105,6 @@ function confereInformacaoBasica(){
     alert(lista);
     return;   
     }
-    console.log(lista);
     componentesQuiz.push(elementosDoQuiz[0],elementosDoQuiz[1],elementosDoQuiz[2],elementosDoQuiz[3]);    
     document.querySelector(".conteudo").innerHTML = ``;
     perguntasDoQuiz();
@@ -116,9 +139,6 @@ function colocaAsPerguntasQuiz(numeroClicado){
         </div>`;
          
 }
-
-// <div class="cor-de-fundo"> Cor de fundo da pergunta<input type="color" placeholder="Cor de fundo da pergunta"></div>
-
 //https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffotos-gratis%2Ffoto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Ffotos%2Farvore&tbnid=1d0KYXzR2E96IM&vet=12ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ..i&docid=IIdBpbgBOVfhdM&w=2000&h=1334&q=fotos&client=ubuntu&ved=2ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ
 
 function pegaInformacao1Quiz(){
@@ -129,7 +149,7 @@ function pegaInformacao1Quiz(){
     let cadaInput = cadaInputtotal[e].children[0].children;
     let conta=0;
      lista1.splice(0,lista1.length )
-     const listaDecimal= ["a","b","c","d","e","f","A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
+     const listaDecimal= ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
      if (cadaInput[1].value.length < 20) {
          lista1.push("Texto da pergunta menor que 20");
      }
@@ -141,7 +161,7 @@ function pegaInformacao1Quiz(){
              }
          }
      }
-     if (cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7 || cadaInput[2].value.length<4) {
+     if (cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7 || cadaInput[2].value.length<6) {
          lista1.push("Não é uma cor valida");
      }
      if(cadaInput[4].value === "" ){
@@ -159,7 +179,6 @@ function pegaInformacao1Quiz(){
       catch (err) {
         lista1.push(" Imagem deve possuir formato url");
         alert(lista1);
-        console.log(lista1);   
         lista1.splice(0,lista1.length );
         return;    
     }
@@ -200,8 +219,6 @@ try{
             lista.splice(0,lista.length );
             return;
          }
-        console.log(lista);
-
         objetoQuiz.questions.push({
             title: entradas[1].value,
             color: entradas[2].value,
@@ -224,7 +241,6 @@ try{
              catch (err) {
                lista.push(" Imagem deve possuir formato url");
                alert(lista);
-               console.log(lista);   
                lista.splice(0,lista.length );
                return;
                }
@@ -242,7 +258,6 @@ try{
             catch (err) {
                 lista.push(" Imagem deve possuir formato url");
                 alert(lista);
-                console.log(lista);
                 lista.splice(0, lista.length);
                 return;
             }
@@ -277,14 +292,10 @@ function telaDeNiveis(){
 function pegaInformacao2Quiz(){
     let cadaInput = document.querySelector(`.conteudo`).children;
     try{
-        console.log(componentesQuiz1[0]);
-     componentesQuiz1[0].levels.splice(0,componentesQuiz1[0].levels.length );
+        
+        componentesQuiz1[0].levels.splice(0,componentesQuiz1[0].levels.length );
     for (let index = 0; index < componentesQuiz[3].value; index++) {
         let entradas = cadaInput[index+1].children[0].children;
-        console.log(cadaInput[1].children[0].children[2].value);
-        console.log(Number(entradas[1].value.length));
-        console.log(Number(entradas[1].value.length) <10 || Number(entradas[2].value) < 0 || Number(entradas[2].value) > 100 || Number(entradas[4].value.length)<30 || Number(cadaInput[1].children[0].children[2].value) !== 0 );
-        console.log();
         if (Number(entradas[1].value.length) <10 || Number(entradas[2].value) < 0 || Number(entradas[2].value) > 100 || Number(entradas[4].value.length)<30 || Number(cadaInput[1].children[0].children[2].value) !== 0 ) {
             alert("corrija os parametros passados o primeiro nivel deve ser iguala zero");
             return;
@@ -311,17 +322,18 @@ catch(err){
     return;
 
 }
-    const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
+    const te =  componentesQuiz1[0];
+    const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,te);
     promessa.then(telaFinalizaQuiz);
     promessa.catch(tratarError);
 }
 
-function tratarError(){
-    alert("Algo deu errado");
+function tratarError(erro){
+    alert(erro);
 }
 
 function telaFinalizaQuiz(){
-    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Seu Quiz está pronto!</div><div class="imagem-com-titulo"><img src="${componentesQuiz1[0].image}"><div class="texto-da-imagem">${componentesQuiz1[0].title}</div><button class="botao-criar" onclick="">Acessar Quiz</button><br> <button class="voltar" onclick="voltaHome()">Voltar para home</button>`; 
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Seu Quiz está pronto!</div><div class="imagem-com-titulo"><img src="${componentesQuiz1[0].image}"></div><div class="texto-da-imagem">${componentesQuiz1[0].title}</div><button class="botao-criar" onclick="">Acessar Quiz</button><br> <button class="voltar" onclick="salvarLocalmente()">Voltar para home</button>`; 
 }
 
 function completaNiveis(local){
@@ -357,7 +369,13 @@ function colocaAsPerguntas() {
 }
 
 function delayQuiz(todasCaixas,numerolistaClicado) {
+    try{
     todasCaixas[numerolistaClicado + 2].querySelector(".respostas").scrollIntoView({ block: "end" });
+    }
+    catch(err){
+        todasCaixas[numerolistaClicado + 3].scrollIntoView({block:"end"});
+
+    }
 }
 
 function confereAcerto(elemento, numerolistaClicado, numeroElementoClicado) {
@@ -380,8 +398,6 @@ function confereAcerto(elemento, numerolistaClicado, numeroElementoClicado) {
         if (objeto[0].questions[numerolistaClicado].answers[i].isCorrectAnswer) {
             listaDeImagens.children[i].querySelector(".resposta-legenda").style.color = "#009C22";
         }
-
-        console.log(objeto[0].questions[numerolistaClicado].answers[i].isCorrectAnswer);
     }
     if (objeto[0].questions.length === totalJogadas) {
         finalizaQuiz();
@@ -412,11 +428,21 @@ function finalizaQuiz() {
 }
 
 function salvarLocalmente() {
-    localStorage.setItem(id, `${quizz[i].id}`);
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes");
+    promessa.then(buscarLocalmente);
+    
 }
-
-function buscarLocalmente() {
-    quizzUsuario = localStorage.getItem(id);
+function buscarLocalmente(todosArrays) {
+    for (let index = 0; index < todosArrays.data.length; index++) {
+        if (todosArrays.data[index].title === componentesQuiz1[0].title && todosArrays.data[index].image === componentesQuiz1[0].image ) {
+            totalQuizezzz.push(todosArrays.data[index]);
+            localStorage.setItem(listaNossoArrey, JSON.stringify(totalQuizezzz));
+        }
+            
+        
+    }
+    voltaHome()
+    
 }
 
 function reiniciarQuiz() {
