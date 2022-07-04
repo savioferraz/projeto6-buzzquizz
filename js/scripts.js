@@ -214,7 +214,7 @@ function pegaInformacao2Quiz(){
     console.log(componentesQuiz1[0]);
     const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
     promessa.catch(tratarError);
-    promessa.then(telaFinalizaQuiz);
+    promessa.then(telaFinalizaQuiz, salvarLocalmente);
 }
 
 function tratarError(){
@@ -313,11 +313,24 @@ function finalizaQuiz() {
 }
 
 function salvarLocalmente() {
-    localStorage.setItem(id, `${quizz[i].id}`);
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes")
+    promessa.then(compararPromessa);
+}
+
+function compararPromessa(todosOsArray) {
+    let idSalvo;
+    for (i = 0; i < todosOsArray.length; i ++) {
+        if (componentesQuiz1[0] === todosOsArray.data[i].title) {
+           idSalvo = localStorage.setItem(id, `${todosOsArray[i].id}`);
+        }
+    }
 }
 
 function buscarLocalmente() {
-    quizzUsuario = localStorage.getItem(id);
+    
+    const idDoQuizz = localStorage.getItem(id);
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes/`${idDoQuizz}`")
+
 }
 
 function reiniciarQuiz() {
