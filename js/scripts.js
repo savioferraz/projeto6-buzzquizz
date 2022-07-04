@@ -21,8 +21,8 @@ function quizesDoServidorNaTela(todosQuizes) {
     quizes.push(todosQuizes);
     topoPaginaInicial();
     for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".todos-os-quizes .quizes").innerHTML += ` <div class="imagens" style="background-image: url('${todosQuizes.data[i].image}')" onclick="selecionaQuiz(${i})" ><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
-    }
+        document.querySelector(".todos-os-quizes .quizes").innerHTML += ` <div class="imagens" onclick="selecionaQuiz(${i})" ><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+     }
 }
 
 function pegaQuizesDoServidor() {
@@ -122,70 +122,145 @@ function colocaAsPerguntasQuiz(numeroClicado){
 //https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffotos-gratis%2Ffoto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Ffotos%2Farvore&tbnid=1d0KYXzR2E96IM&vet=12ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ..i&docid=IIdBpbgBOVfhdM&w=2000&h=1334&q=fotos&client=ubuntu&ved=2ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ
 
 function pegaInformacao1Quiz(){
+    let cadaInputtotal = document.querySelector(`.conteudo`).children;
+    let lista1=[];
+    try {
+    for (let e = 1; e < cadaInputtotal.length-2; e++) {
+    let cadaInput = cadaInputtotal[e].children[0].children;
+    let conta=0;
+     lista1.splice(0,lista1.length )
+     const listaDecimal= ["a","b","c","d","e","f","A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
+     if (cadaInput[1].value.length < 20) {
+         lista1.push("Texto da pergunta menor que 20");
+     }
+ 
+     for (let index = 1; index < cadaInput[2].value.length; index++) {
+         for (let i = 0; i < listaDecimal.length; i++) {
+             if (cadaInput[2].value.charAt(index) === listaDecimal[i]) {
+                 conta++;
+             }
+         }
+     }
+     if (cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7 || cadaInput[2].value.length<4) {
+         lista1.push("Não é uma cor valida");
+     }
+     if(cadaInput[4].value === "" ){
+         lista1.push("Você precisa colocar a resposta correta");
+     }
+     if (lista1.length!==0) {
+        alert(lista1);
+        lista1.splice(0,lista1.length );
+        return;
+     }
+     try {
+         new URL(cadaInput[5].value);
+         new URL(cadaInput[8].value); 
+        }
+      catch (err) {
+        lista1.push(" Imagem deve possuir formato url");
+        alert(lista1);
+        console.log(lista1);   
+        lista1.splice(0,lista1.length );
+        return;    
+    }
+    }
+    
+    }
+    catch(err){
+        lista1.push("Preencha os campos necessários")
+        alert(lista1);
+        lista1.splice(0,lista1.length );
+        return;
+    }
     const lista=[];
-    let cadaInput = document.querySelector(`.conteudo`).children;
     objetoQuiz= {
         title: componentesQuiz[0].value,
         image: componentesQuiz[1].value,
-        levels: [],
         questions: [],
+        levels: [],
+        
     };
-
 try{
-    console.log(objetoQuiz);
     for (let i = 0; i < componentesQuiz[2].value; i++) {
-        let entradas = cadaInput[i+1].children[0].children;
+        let entradas = cadaInputtotal[1+i].children[0].children;
+        if ((entradas[7].value ==="" && entradas[8].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
+            lista.push(`Complete a primeira respostas incorreta`);
+
+        }
+        if ((entradas[9].value ==="" && entradas[10].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
+            lista.push(`Complete as respostas incorretas da pergunta ou deixe apenas a primeira`);
+
+        }
+        if ((entradas[11].value ==="" && entradas[12].value !== "")  || (entradas[11].value !=="" && entradas[12].value === "") ) {
+            lista.push(`Complete as respostas incorretas da pergunta ou deixe apenas a primeira`);
+
+        }
+        if (lista.length!==0) {
+            alert(lista);
+            lista.splice(0,lista.length );
+            return;
+         }
+        console.log(lista);
+
         objetoQuiz.questions.push({
-        title: entradas[1].value,
-        color: entradas[2].value,
-        answers: []
+            title: entradas[1].value,
+            color: entradas[2].value,
+            answers: []
         });
         objetoQuiz.questions[i].answers.push({
-        text: entradas[4].value,
-        image: entradas[5].value,
-        isCorrectAnswer: true
-    },
-    {
-        text: entradas[7].value,
-        image: entradas[8].value,
-        isCorrectAnswer: false
-    });
-    if (entradas[9].value !=="" && entradas[10].value !== "") {
-        objetoQuiz.questions[i].answers.push(
+            text: entradas[4].value,
+            image: entradas[5].value,
+            isCorrectAnswer: true
+        },
         {
-            text: entradas[9].value,
-            image: entradas[10].value,
+            text: entradas[7].value,
+            image: entradas[8].value,
             isCorrectAnswer: false
-        })
-    };
-    if (entradas[11].value !=="" && entradas[12].value !== "") {
-        objetoQuiz.questions[i].answers.push(
-        {
-            text: entradas[11].value,
-            image: entradas[12].value,
-            isCorrectAnswer: false
-        })
-    };
-        if ((entradas[9].value ==="" && entradas[10].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
-            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
+        });
+        if (entradas[9].value !=="" && entradas[10].value !== "") {
+            try {
+                new URL(entradas[10].value); 
+               }
+             catch (err) {
+               lista.push(" Imagem deve possuir formato url");
+               alert(lista);
+               console.log(lista);   
+               lista.splice(0,lista.length );
+               return;
+               }
+            objetoQuiz.questions[i].answers.push(
+                {
+                    text: entradas[9].value,
+                    image: entradas[10].value,
+                    isCorrectAnswer: false
+                })
+        };
+        if (entradas[11].value !== "" && entradas[12].value !== "") {
+            try {
+                new URL(entradas[12].value);
+            }
+            catch (err) {
+                lista.push(" Imagem deve possuir formato url");
+                alert(lista);
+                console.log(lista);
+                lista.splice(0, lista.length);
+                return;
+            }
 
-        }
-        if ((entradas[11].value ==="" && entradas[12].value !== "")  || (entradas[11].value !=="" && entradas[12].value === "")) {
-            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
-
-        }
+            objetoQuiz.questions[i].answers.push(
+                {
+                    text: entradas[11].value,
+                    image: entradas[12].value,
+                    isCorrectAnswer: false
+                });
+        };
     }
-}
-    catch(err){
-        alert("Preencha os campos necessários")
-        lista.splice(0,lista.length );
-        return;
-    }
-    if (lista.length !== 0) {
-        alert(lista);
-        lista.splice(0,lista.length );
-        return;
-    }
+ }
+     catch(err){
+         alert("Preencha os campos necessários")
+         lista.splice(0,lista.length );
+         return;
+     }
     componentesQuiz1.push(objetoQuiz);
     
     telaDeNiveis();
@@ -201,20 +276,49 @@ function telaDeNiveis(){
 
 function pegaInformacao2Quiz(){
     let cadaInput = document.querySelector(`.conteudo`).children;
-    
+    try{
+        console.log(componentesQuiz1[0]);
+     componentesQuiz1[0].levels.splice(0,componentesQuiz1[0].levels.length );
     for (let index = 0; index < componentesQuiz[3].value; index++) {
         let entradas = cadaInput[index+1].children[0].children;
+        console.log(cadaInput[1].children[0].children[2].value);
+        console.log(Number(entradas[1].value.length));
+        console.log(Number(entradas[1].value.length) <10 || Number(entradas[2].value) < 0 || Number(entradas[2].value) > 100 || Number(entradas[4].value.length)<30 || Number(cadaInput[1].children[0].children[2].value) !== 0 );
+        console.log();
+        if (Number(entradas[1].value.length) <10 || Number(entradas[2].value) < 0 || Number(entradas[2].value) > 100 || Number(entradas[4].value.length)<30 || Number(cadaInput[1].children[0].children[2].value) !== 0 ) {
+            alert("corrija os parametros passados o primeiro nivel deve ser iguala zero");
+            return;
+        }
+        
+        try {
+            new URL(entradas[3].value); 
+           }
+         catch (err) {
+            alert(" Imagem deve possuir formato url");
+           return;    
+       }
         componentesQuiz1[0].levels.push({
             title: entradas[1].value,
             image: entradas[3].value,
             text: entradas[4].value,
-            minValue: Number(entradas[2].value)
+            minValue: (entradas[2].value),
     });
     }
-    console.log(componentesQuiz1[0]);
+}
+catch(err){
+     alert("Preencha os campos necessários")
+    componentesQuiz1[0].levels.splice(0,componentesQuiz1[0].levels.length );
+    return;
+
+}
     const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
+<<<<<<< HEAD
     promessa.catch(tratarError);
     promessa.then(telaFinalizaQuiz, salvarLocalmente);
+=======
+    promessa.then(telaFinalizaQuiz);
+    promessa.catch(tratarError);
+>>>>>>> 8a51c40e050f1869cae6a2fca1a1cc9d56fe661b
 }
 
 function tratarError(){
@@ -345,45 +449,3 @@ function reiniciarQuiz() {
 function voltaHome() {
     window.location.reload();
 }
-
-
-// let cadaInput = document.querySelector(`.cada-input${1} >.caixa-inputs`).children;
-//     let conta=0;
-//     let lista=[];
-//     lista.splice(0,lista.length )
-//     const listaDecimal= ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
-//     if (cadaInput[1].value.length < 20 || cadaInput[4].value === "") {
-//         lista.push("Texto da pergunta menor que 20");
-//     }
-    
-//     for (let index = 1; index < cadaInput[2].value.length; index++) {
-//         for (let i = 0; i < listaDecimal.length; i++) {
-//             if (cadaInput[2].value.charAt(index) === listaDecimal[i]) {
-//                 conta++;
-//             }
-//         }
-//     }
-
-//     if (cadaInput[4].value === "" || cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7) {
-//         lista.push("Não é uma cor valida");
-
-//     }
-//     if(cadaInput[4].value === "" ){
-//         lista.push("Você precisa colocar a resposta correta");
-//     } 
-//     if(cadaInput[4].value === "" ){
-//         lista.push("Você precisa colocar a resposta correta");
-//     }
-    
-//     try {
-//         new URL(cadaInput[4].value);
-//         }
-//      catch (err) {
-//         lista.push("Imagem deve possuir formato url");
-//            }
-
-           
-//     console.log();
-//     console.log(conta+1);
-//     console.log(lista);
-//     console.log(cadaInput[4]);
