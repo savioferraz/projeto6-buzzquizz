@@ -10,6 +10,8 @@
 
  const objeto = [];
 
+ const quizzUsuario = [];
+
  verificaSeTemQuiz();
 
  pegaQuizesDoServidor();
@@ -19,8 +21,8 @@ function quizesDoServidorNaTela(todosQuizes) {
     quizes.push(todosQuizes);
     topoPaginaInicial();
     for (let i = 0; i < todosQuizes.data.length; i++) {
-        document.querySelector(".todos-os-quizes .quizes").innerHTML += ` <div class="imagens" style="background-image: url('${todosQuizes.data[i].image}')" onclick="selecionaQuiz(${i})" ><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
-    }
+        document.querySelector(".todos-os-quizes .quizes").innerHTML += ` <div class="imagens" onclick="selecionaQuiz(${i})" ><img src="${todosQuizes.data[i].image}"><h2 class="legenda">${todosQuizes.data[i].title}</h2></div>`;
+     }
 }
 
 function pegaQuizesDoServidor() {
@@ -34,18 +36,24 @@ function topoPaginaInicial() {
 
 function baixoPaginainicial(retorno) {
     if (retorno === false) {
-        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes</h1> <div class="quizes-usuario"></div>`;
+        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes <ion-icon name="add-circle" onclick=""></ion-icon></h1> <div class="quizes-usuario"></div>`;
         return;
     }
     document.querySelector(".conteudo").innerHTML = ` <div class="seus-quizes"> <div class="sem-nehum-quiz"> <p>Você não criou nenhum <br> quiz ainda ;(</p> <button onclick="paginaDoQuestionario()" >Criar quizz</button></div></div>`;
 }
 
 function verificaSeTemQuiz() {
-    //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial//
+    //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial
+    // if (!quizzUsuario) {
+    //     for (i = 0; i < quizzUsuario.length; i++) {
+
+    //     }
+    // }
+
     baixoPaginainicial();
 }
 function paginaDoQuestionario() {
-    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" placeholder="Quantidade de perguntas do quizz"><input type="number" placeholder="Quantidade de níveis do quizz"> </div> <button class="botao-criar" onclick="confereInformacaoBasica()">Prosseguir para criar perguntas</button>`;
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz" minlength="20" maxlength="65"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" min="3" placeholder="Quantidade de perguntas do quizz (mínimo 3)"><input type="number" min="2" placeholder="Quantidade de níveis do quizz (mínimo 2)"> </div> <button class="botao-criar" onclick="confereInformacaoBasica()">Prosseguir para criar perguntas</button><button class="voltar" onclick="voltaHome()" >Voltar pra home</button>`;
 }
 function confereInformacaoBasica(){
     let lista= [];
@@ -53,7 +61,7 @@ function confereInformacaoBasica(){
     const elementosDoQuiz = document.querySelector(".caixa-inputs").children;
    elementosDoQuiz[0].value;
    if (elementosDoQuiz[0].value.length<20 || elementosDoQuiz[0].value.length>65) {
-    lista.push("O nome do quiz deve ter mais que 20 e menos de 65 caracters");
+    lista.push("O nome do quiz deve ter entre 20 e 65 caracters");
    }
    if (Number(elementosDoQuiz[2].value) <=2 || Number.isInteger(Number(elementosDoQuiz[2].value) !== true) ) {
     lista.push("Deve possuir 3 ou mais perguntas");
@@ -86,39 +94,42 @@ function perguntasDoQuiz(){
     for (let index = 0; index < componentesQuiz[2].value; index++) {
         document.querySelector(".conteudo").innerHTML += ` <div class="cada-input${index+1} cada-inputs"><div class="caixa-inputs recolhida" onclick="colocaAsPerguntasQuiz(${index+1})"><div class="titulo">Pergunta ${index+1}</div> <ion-icon name="create-outline"></ion-icon></div></div>`;
     }
-    document.querySelector(".conteudo").innerHTML +=`<button class="botao-criar" onclick="pegaInformacao1Quiz()">Prosseguir para criar niveis</button>`;
+    document.querySelector(".conteudo").innerHTML +=`<button class="botao-criar" onclick="pegaInformacao1Quiz()">Prosseguir para criar niveis</button> <button class="voltar" onclick="voltaHome()" >Voltar pra home</button>`;
 } 
 
 function colocaAsPerguntasQuiz(numeroClicado){
     document.querySelector(`.cada-input${numeroClicado}`).innerHTML = `
     <div class="caixa-inputs" >
         <div class="titulo" >Pergunta ${numeroClicado}  </div>
-        <input type="text" placeholder="Texto da pergunta">
+        <input type="text" minlength="20" placeholder="Texto da pergunta (mínimo 20)">
         <input type="text" placeholder="Cor de fundo da pergunta">
         <div class="titulo">Resposta correta</div>
-        <input type="text" placeholder="Resposta correta">
+        <input type="text" minlength="1" placeholder="Resposta correta">
         <input type="url" placeholder="URL da imagem">
         <div class="titulo">Respostas incorretas</div>
-        <input type="text" placeholder="Resposta incorreta 1">
+        <input type="text" minlength="1" placeholder="Resposta incorreta 1">
         <input type="url" placeholder="URL da imagem 1">
-        <input type="text" placeholder="Resposta incorreta 2">
+        <input type="text" minlength="1" placeholder="Resposta incorreta 2">
         <input type="url" placeholder="URL da imagem 2">
-        <input type="text" placeholder="Resposta incorreta 3">
+        <input type="text" minlength="1" placeholder="Resposta incorreta 3">
         <input type="url" placeholder="URL da imagem 3">
         </div>`;
          
-}           
+}
+
+// <div class="cor-de-fundo"> Cor de fundo da pergunta<input type="color" placeholder="Cor de fundo da pergunta"></div>
+
 //https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffotos-gratis%2Ffoto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Ffotos%2Farvore&tbnid=1d0KYXzR2E96IM&vet=12ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ..i&docid=IIdBpbgBOVfhdM&w=2000&h=1334&q=fotos&client=ubuntu&ved=2ahUKEwjGhorRkdj4AhX0BbkGHW4DCq8QMygBegUIARCgAQ
 
 function pegaInformacao1Quiz(){
     let cadaInputtotal = document.querySelector(`.conteudo`).children;
-    for (let e = 1; e < cadaInputtotal.length-1; e++) {
+    let lista1=[];
+    try {
+    for (let e = 1; e < cadaInputtotal.length-2; e++) {
     let cadaInput = cadaInputtotal[e].children[0].children;
     let conta=0;
-     let lista1=[];
-     console.log(cadaInput);
      lista1.splice(0,lista1.length )
-     const listaDecimal= ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
+     const listaDecimal= ["a","b","c","d","e","f","A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
      if (cadaInput[1].value.length < 20) {
          lista1.push("Texto da pergunta menor que 20");
      }
@@ -130,97 +141,125 @@ function pegaInformacao1Quiz(){
              }
          }
      }
-     if (cadaInput[4].value === "" || cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7) {
+     if (cadaInput[2].value.charAt(0) !== "#" || cadaInput[2].value.length !== conta+1 || cadaInput[2].value.length>7 || cadaInput[2].value.length<4) {
          lista1.push("Não é uma cor valida");
      }
-     if(cadaInput[7].value === "" ){
-         lista1.push("Você precisa colocar a resposta incorreta");
+     if(cadaInput[4].value === "" ){
+         lista1.push("Você precisa colocar a resposta correta");
      }
- 
+     if (lista1.length!==0) {
+        alert(lista1);
+        lista1.splice(0,lista1.length );
+        return;
+     }
      try {
          new URL(cadaInput[5].value);
          new URL(cadaInput[8].value); 
         }
       catch (err) {
-         lista1.push(" Imagem deve possuir formato url");
-            }
-        
-     console.log();
-     console.log(conta+1);
-     console.log(lista1);
-     console.log(cadaInput[4]);
-        }
-
-
-
-
-
-
-
-
-    /*const lista=[];
+        lista1.push(" Imagem deve possuir formato url");
+        alert(lista1);
+        console.log(lista1);   
+        lista1.splice(0,lista1.length );
+        return;    
+    }
+    }
+    
+    }
+    catch(err){
+        lista1.push("Preencha os campos necessários")
+        alert(lista1);
+        lista1.splice(0,lista1.length );
+        return;
+    }
+    const lista=[];
     objetoQuiz= {
         title: componentesQuiz[0].value,
         image: componentesQuiz[1].value,
         levels: [],
         questions: [],
     };
-
 try{
-    console.log(objetoQuiz);
     for (let i = 0; i < componentesQuiz[2].value; i++) {
-        let entradas = cadaInput[i+1].children[0].children;
+        let entradas = cadaInputtotal[1+i].children[0].children;
+        if ((entradas[7].value ==="" && entradas[8].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
+            lista.push(`Complete a primeira respostas incorreta`);
+
+        }
+        if ((entradas[9].value ==="" && entradas[10].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
+            lista.push(`Complete as respostas incorretas da pergunta ou deixe apenas a primeira`);
+
+        }
+        if ((entradas[11].value ==="" && entradas[12].value !== "")  || (entradas[11].value !=="" && entradas[12].value === "") ) {
+            lista.push(`Complete as respostas incorretas da pergunta ou deixe apenas a primeira`);
+
+        }
+        if (lista.length!==0) {
+            alert(lista);
+            lista.splice(0,lista.length );
+            return;
+         }
+        console.log(lista);
+
         objetoQuiz.questions.push({
-        title: entradas[1].value,
-        color: entradas[2].value,
-        answers: []
+            title: entradas[1].value,
+            color: entradas[2].value,
+            answers: []
         });
         objetoQuiz.questions[i].answers.push({
-        text: entradas[4].value,
-        image: entradas[5].value,
-        isCorrectAnswer: true
-    },
-    {
-        text: entradas[7].value,
-        image: entradas[8].value,
-        isCorrectAnswer: false
-    });
-    if (entradas[9].value !=="" && entradas[10].value !== "") {
-        objetoQuiz.questions[i].answers.push(
+            text: entradas[4].value,
+            image: entradas[5].value,
+            isCorrectAnswer: true
+        },
         {
-            text: entradas[9].value,
-            image: entradas[10].value,
+            text: entradas[7].value,
+            image: entradas[8].value,
             isCorrectAnswer: false
-        })
-    };
-    if (entradas[11].value !=="" && entradas[12].value !== "") {
-        objetoQuiz.questions[i].answers.push(
-        {
-            text: entradas[11].value,
-            image: entradas[12].value,
-            isCorrectAnswer: false
-        })
-    };
-        if ((entradas[9].value ==="" && entradas[10].value !== "")  || (entradas[9].value !=="" && entradas[10].value === "")) {
-            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
+        });
+        if (entradas[9].value !=="" && entradas[10].value !== "") {
+            try {
+                new URL(entradas[10].value); 
+               }
+             catch (err) {
+               lista.push(" Imagem deve possuir formato url");
+               alert(lista);
+               console.log(lista);   
+               lista.splice(0,lista.length );
+               return;
+               }
+            objetoQuiz.questions[i].answers.push(
+                {
+                    text: entradas[9].value,
+                    image: entradas[10].value,
+                    isCorrectAnswer: false
+                })
+        };
+        if (entradas[11].value !== "" && entradas[12].value !== "") {
+            try {
+                new URL(entradas[12].value);
+            }
+            catch (err) {
+                lista.push(" Imagem deve possuir formato url");
+                alert(lista);
+                console.log(lista);
+                lista.splice(0, lista.length);
+                return;
+            }
 
-        }
-        if ((entradas[11].value ==="" && entradas[12].value !== "")  || (entradas[11].value !=="" && entradas[12].value === "")) {
-            lista.push(`Complete as respostas incorretas da pergunta ${i} ou deixe apenas a primeira`);
-
-        }
+            objetoQuiz.questions[i].answers.push(
+                {
+                    text: entradas[11].value,
+                    image: entradas[12].value,
+                    isCorrectAnswer: false
+                });
+        };
     }
-}
-    catch(err){
-        alert("Preencha os campos necessários")
-        lista.splice(0,lista.length );
-        return;
-    }
-    if (lista.length !== 0) {
-        alert(lista);
-        lista.splice(0,lista.length );
-        return;
-    }*/
+ }
+     catch(err){
+         alert("Preencha os campos necessários")
+         lista.splice(0,lista.length );
+         return;
+     }
     componentesQuiz1.push(objetoQuiz);
     
     telaDeNiveis();
@@ -231,7 +270,7 @@ function telaDeNiveis(){
    for (let index = 0; index < componentesQuiz[3].value; index++) {
     document.querySelector(".conteudo").innerHTML+=`<div class="total${index} total-mente"><div class="caixa-inputs recolhida" onclick="completaNiveis(${index})"><div class="titulo">Nível ${index+1}</div> <ion-icon name="create-outline"></ion-icon></div></div>`;
     }
-    document.querySelector(".conteudo").innerHTML+=`<button class="botao-criar" onclick="pegaInformacao2Quiz()">Finalizar Quiz</button>`;
+    document.querySelector(".conteudo").innerHTML+=`<button class="botao-criar" onclick="pegaInformacao2Quiz()">Finalizar Quiz</button><button class="voltar" onclick="voltaHome()" >Voltar pra home</button>`;
 }
 
 function pegaInformacao2Quiz(){
@@ -239,6 +278,17 @@ function pegaInformacao2Quiz(){
     try{
     for (let index = 0; index < componentesQuiz[3].value; index++) {
         let entradas = cadaInput[index+1].children[0].children;
+        if (entradas[1].value <10 || Number(entradas[2].value) <0 || Number(entradas[2].value) > 100 ||entradas[4].value<30 || cadaInput[1].children[0].children[2].value === 0 ) {
+            alert("corrija os parametros passados o primeiro nivel deve ser iguala zero");
+        }
+        
+        try {
+            new URL(entradas[3].value); 
+           }
+         catch (err) {
+            alert(" Imagem deve possuir formato url");
+           return;    
+       }
         componentesQuiz1[0].levels.push({
             title: entradas[1].value,
             image: entradas[3].value,
@@ -256,7 +306,6 @@ catch(err){
     const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
     promessa.catch(tratarError);
     promessa.then(telaFinalizaQuiz);
-    
 }
 
 function tratarError(){
@@ -264,19 +313,18 @@ function tratarError(){
 }
 
 function telaFinalizaQuiz(){
-    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Seu Quiz está pronto!</div><div class="imagem-com-titulo"><img src="${componentesQuiz1[0].image}"><div class="texto-da-imagem">${componentesQuiz1[0].title}</div><button class="botao-criar" onclick="">Acessar Quiz</button><br> <button class="voltar" onclick="voltaHome()">Voltar para home</button>`;
-    
+    document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Seu Quiz está pronto!</div><div class="imagem-com-titulo"><img src="${componentesQuiz1[0].image}"><div class="texto-da-imagem">${componentesQuiz1[0].title}</div><button class="botao-criar" onclick="">Acessar Quiz</button><br> <button class="voltar" onclick="voltaHome()">Voltar para home</button>`; 
 }
+
 function completaNiveis(local){
     let i = document.querySelector(`.total${local}`);
     i.innerHTML = ` <div class="caixa-inputs">
     <div class="titulo">Nível ${local+1}</div>
-    <input type="text" placeholder="Titulo do nível">
-    <input type="number" placeholder="% de acerto mínima">
+    <input type="text" minlength="10" placeholder="Titulo do nível">
+    <input type="number" min="0" max="100" placeholder="% de acerto mínima">
     <input type="url" placeholder="URL da imagem do nível">
-    <input type="text" placeholder="Descrição do nível">
+    <input type="text" minlength="30" placeholder="Descrição do nível">
 </div>`;
-
 }
 
 function selecionaQuiz(numeroElemento) {
@@ -297,6 +345,7 @@ function colocaAsPerguntas() {
             caixaDePergunta.children[i + 1].querySelector(".respostas").innerHTML += `<div class="resposta-imagem"><img onclick="confereAcerto(this,${i},${e})" src="${objeto[0].questions[i].answers[e].image}"><div class="resposta-legenda">${objeto[0].questions[i].answers[e].text} </div></div>`;
         }
     }
+    document.querySelector(".conteudo").innerHTML += `<button class="voltar" onclick="voltaHome()">Voltar para home</button>`;
 }
 
 function delayQuiz(todasCaixas,numerolistaClicado) {
@@ -351,10 +400,15 @@ function finalizaQuiz() {
             document.querySelector(".conteudo").lastChild.scrollIntoView();
             return;
         }
-
     }
+}
 
+function salvarLocalmente() {
+    localStorage.setItem(id, `${quizz[i].id}`);
+}
 
+function buscarLocalmente() {
+    quizzUsuario = localStorage.getItem(id);
 }
 
 function reiniciarQuiz() {
@@ -369,6 +423,3 @@ function reiniciarQuiz() {
 function voltaHome() {
     window.location.reload();
 }
-
-
- 
