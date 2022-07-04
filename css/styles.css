@@ -88,14 +88,13 @@ header{
 }
 
 .imagens>img{
-    mask-image: linear-gradient(rgba(0, 0, 0, 0.586), transparent );
+    mask-image: linear-gradient(to bottom ,rgb(0, 0, 0), transparent );
     width: 340px;
     height: 181px;
     border-radius: 5px;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));   
 }
 
 .imagens .legenda {

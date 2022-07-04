@@ -176,8 +176,9 @@ function pegaInformacao1Quiz(){
     objetoQuiz= {
         title: componentesQuiz[0].value,
         image: componentesQuiz[1].value,
-        levels: [],
         questions: [],
+        levels: [],
+        
     };
 try{
     for (let i = 0; i < componentesQuiz[2].value; i++) {
@@ -276,10 +277,17 @@ function telaDeNiveis(){
 function pegaInformacao2Quiz(){
     let cadaInput = document.querySelector(`.conteudo`).children;
     try{
+        console.log(componentesQuiz1[0]);
+     componentesQuiz1[0].levels.splice(0,componentesQuiz1[0].levels.length );
     for (let index = 0; index < componentesQuiz[3].value; index++) {
         let entradas = cadaInput[index+1].children[0].children;
-        if (entradas[1].value <10 || Number(entradas[2].value) <0 || Number(entradas[2].value) > 100 ||entradas[4].value<30 || cadaInput[1].children[0].children[2].value === 0 ) {
+        console.log(cadaInput[1].children[0].children[2].value);
+        console.log(Number(entradas[1].value.length));
+        console.log(Number(entradas[1].value.length) <10 || Number(entradas[2].value) < 0 || Number(entradas[2].value) > 100 || Number(entradas[4].value.length)<30 || Number(cadaInput[1].children[0].children[2].value) !== 0 );
+        console.log();
+        if (Number(entradas[1].value.length) <10 || Number(entradas[2].value) < 0 || Number(entradas[2].value) > 100 || Number(entradas[4].value.length)<30 || Number(cadaInput[1].children[0].children[2].value) !== 0 ) {
             alert("corrija os parametros passados o primeiro nivel deve ser iguala zero");
+            return;
         }
         
         try {
@@ -293,7 +301,7 @@ function pegaInformacao2Quiz(){
             title: entradas[1].value,
             image: entradas[3].value,
             text: entradas[4].value,
-            minValue: Number(entradas[2].value)
+            minValue: (entradas[2].value),
     });
     }
 }
@@ -304,8 +312,8 @@ catch(err){
 
 }
     const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
-    promessa.catch(tratarError);
     promessa.then(telaFinalizaQuiz);
+    promessa.catch(tratarError);
 }
 
 function tratarError(){
