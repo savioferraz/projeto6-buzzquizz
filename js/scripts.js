@@ -4,19 +4,45 @@
 
  const quizes = [];
 
+ const quizesUsuario = [];
+
  let totalAcertos = 0;
+
+ let idUsuario = [];
+
+ let idsLocal;
 
  let totalJogadas = 0;
 
  const objeto = [];
 
- const quizzUsuario = [];
+pegaQuizesDoServidor();
 
- verificaSeTemQuiz();
+verificaSeTemQuiz();
 
- pegaQuizesDoServidor();
+ function pegaQuizesDoServidor() {
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes");
+    promessa.then(quizesDoServidorNaTela);
+}
 
- 
+function verificaSeTemQuiz() {
+    if (!idsLocal) {
+        baixoPaginainicial();
+    } else {
+    idsLocal = localStorage.getItem("id");
+    pegaQuizesDoUsuario();
+    }
+}
+
+function pegaQuizesDoUsuario() {
+   
+    let idsLocalArray = JSON.parse(idsLocal);
+    for (i = 0, i < idsLocalArray.length; i++;) {
+    const promessa = axios.get(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes/${idsLocal[i]}`)
+    promessa.then(quizesDoUsuarioNaTela);
+    }
+}
+
 function quizesDoServidorNaTela(todosQuizes) {
     quizes.push(todosQuizes);
     topoPaginaInicial();
@@ -25,36 +51,29 @@ function quizesDoServidorNaTela(todosQuizes) {
      }
 }
 
-function pegaQuizesDoServidor() {
-    const promessa = axios.get("https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes");
-    promessa.then(quizesDoServidorNaTela);
+function quizesDoUsuarioNaTela(todosQuizesUsuario) {
+    quizesUsuario.push(todosQuizesUsuario);
+    for (let i = 0; i < todosQuizes.data.length; i++) {
+        document.querySelector(".seus-quizes .quizes").innerHTML += ` <div class="imagens" onclick="selecionaQuiz(${i})" ><img src="${todosQuizesUsuario.data[i].image}"><h2 class="legenda">${todosQuizesUsuario.data[i].title}</h2></div>`;
+     }
 }
 
 function topoPaginaInicial() {
     document.querySelector(".conteudo").innerHTML += ` <div class="todos-os-quizes"> <h1 class="titulo">Todos os quizes</h1> <div class="quizes"> </div> </div>`;
 }
 
-function baixoPaginainicial(retorno) {
-    if (retorno === false) {
-        document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes <ion-icon name="add-circle" onclick=""></ion-icon></h1> <div class="quizes-usuario"></div>`;
-        return;
-    }
+function baixoPaginainicial() {
+    // if (idsLocal != "") {
+    //     document.querySelector(".conteudo").innerHTML = `<h1 class="titulo primeiro">Seus quizes <ion-icon name="add-circle" onclick="paginaDoQuestionario()"></ion-icon></h1> <div class="quizes-usuario"></div>`;
+    //     return;
+    // }
     document.querySelector(".conteudo").innerHTML = ` <div class="seus-quizes"> <div class="sem-nehum-quiz"> <p>Você não criou nenhum <br> quiz ainda ;(</p> <button onclick="paginaDoQuestionario()" >Criar quizz</button></div></div>`;
 }
 
-function verificaSeTemQuiz() {
-    //aqui tera a condição que verifica se a mais quizes desse usuario como ainda não a sempre ira mostrrar atela inicial
-    // if (!quizzUsuario) {
-    //     for (i = 0; i < quizzUsuario.length; i++) {
-
-    //     }
-    // }
-
-    baixoPaginainicial();
-}
 function paginaDoQuestionario() {
     document.querySelector(".conteudo").innerHTML = `<div class="titulo criacao">Comece pelo começo</div><div class="caixa-inputs"> <input type="text" placeholder="Titulo do seu quiz" minlength="20" maxlength="65"> <input type="url" placeholder="URL da imagem do seu quiz"><input type="number" min="3" placeholder="Quantidade de perguntas do quizz (mínimo 3)"><input type="number" min="2" placeholder="Quantidade de níveis do quizz (mínimo 2)"> </div> <button class="botao-criar" onclick="confereInformacaoBasica()">Prosseguir para criar perguntas</button><button class="voltar" onclick="voltaHome()" >Voltar pra home</button>`;
 }
+
 function confereInformacaoBasica(){
     let lista= [];
     lista.splice(0,lista.length )
@@ -312,13 +331,8 @@ catch(err){
 
 }
     const promessa = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`,componentesQuiz1[0]);
-<<<<<<< HEAD
-    promessa.catch(tratarError);
     promessa.then(telaFinalizaQuiz, salvarLocalmente);
-=======
-    promessa.then(telaFinalizaQuiz);
     promessa.catch(tratarError);
->>>>>>> 8a51c40e050f1869cae6a2fca1a1cc9d56fe661b
 }
 
 function tratarError(){
@@ -422,19 +436,13 @@ function salvarLocalmente() {
 }
 
 function compararPromessa(todosOsArray) {
-    let idSalvo;
-    for (i = 0; i < todosOsArray.length; i ++) {
-        if (componentesQuiz1[0] === todosOsArray.data[i].title) {
-           idSalvo = localStorage.setItem(id, `${todosOsArray[i].id}`);
-        }
-    }
+    idUsuario.push(todosOsArray.data[0].id);
+    idsLocal = JSON.stringify(idUsuario)
+    localStorage.setItem.push("id", idsLocal);
 }
 
 function buscarLocalmente() {
-    
     const idDoQuizz = localStorage.getItem(id);
-    const promessa = axios.get("https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes/`${idDoQuizz}`")
-
 }
 
 function reiniciarQuiz() {
